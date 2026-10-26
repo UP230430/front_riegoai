@@ -44,5 +44,3 @@ export function Chip({ variante = 'neutro', texto, conteo, activo, onPress, clas
     </Pressable>
   );
 }
-
-export const etiquetasChip = { FONDOS, TEXTOS };

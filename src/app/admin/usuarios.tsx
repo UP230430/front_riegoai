@@ -4,14 +4,15 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { Rol, Usuario } from '@/types';
-import * as usuariosService from '@/services/usuariosService';
+import { usuariosService } from '@/services';
+import { colores } from '@/theme/tokens';
 import { useSesion } from '@/store/useSesionStore';
 import { Confirmar } from '@/components/Confirmar';
 import { Skeleton, Vacio } from '@/components/ui/Estados';
 import { hapticoError, hapticoExito, hapticoToque } from '@/utils/haptico';
 
 /** Chip de rol reutilizable. */
-export function ChipRol({ rol }: { rol: Rol }) {
+function ChipRol({ rol }: { rol: Rol }) {
   const fondo = rol === 'admin' ? 'bg-primary-container' : 'bg-secondary-container';
   const color = rol === 'admin' ? 'text-on-primary-container' : 'text-on-secondary-container';
   const etiqueta = rol === 'admin' ? 'Admin · Control total' : 'Operador · Solo lectura global';
@@ -88,7 +89,7 @@ function ModalCrear({ visible, onClose, onGuardar }: Props) {
                 accessibilityRole="radio"
                 accessibilityLabel={`Rol ${r}`}
               >
-                <MaterialIcons name={r === 'admin' ? 'admin-panel-settings' : 'person'} size={18} color={rol === r ? '#1B5E20' : '#555555'} />
+                <MaterialIcons name={r === 'admin' ? 'admin-panel-settings' : 'person'} size={18} color={rol === r ? colores.onPrimaryContainer : colores.onSurfaceVariant} />
                 <Text className={`text-label-md font-semibold ${rol === r ? 'text-on-primary-container' : 'text-on-surface-variant'}`}>
                   {r === 'admin' ? 'Admin' : 'Operador'}
                 </Text>
@@ -150,11 +151,11 @@ export default function AdminUsuarios() {
       <View className="flex-1 bg-surface">
         <View className="flex-row items-center px-2 pt-2">
           <Pressable onPress={() => router.back()} accessibilityLabel="Cerrar" className="h-10 w-10 items-center justify-center">
-            <MaterialIcons name="close" size={24} color="#1B1B1B" />
+            <MaterialIcons name="close" size={24} color={colores.onSurface} />
           </Pressable>
         </View>
         <View className="flex-1 items-center justify-center px-6">
-          <MaterialIcons name="lock" size={40} color="#555555" />
+          <MaterialIcons name="lock" size={40} color={colores.onSurfaceVariant} />
           <Text className="pt-3 text-title-md text-on-surface">Solo administradores</Text>
           <Text className="pt-1 text-center text-body-sm text-on-surface-variant">
             La gestión de usuarios está reservada al rol admin. Pide a un admin que actualice tu cuenta o consulta con él las reglas de acceso.
@@ -208,7 +209,7 @@ export default function AdminUsuarios() {
             accessibilityRole="button"
             accessibilityLabel="Añadir usuario"
           >
-            <MaterialIcons name="person-add" size={18} color="#FFFFFF" />
+            <MaterialIcons name="person-add" size={18} color={colores.onPrimary} />
             <Text className="text-label-md font-semibold text-on-primary">Añadir</Text>
           </Pressable>
         </View>
@@ -253,7 +254,7 @@ export default function AdminUsuarios() {
                       <Switch
                         value={cambiarAdmin}
                         onValueChange={(v) => void cambiarRol.mutateAsync({ id: u.id, rol: v ? 'admin' : 'operador' })}
-                        trackColor={{ false: '#D7DFD1', true: '#2E7D32' }}
+                        trackColor={{ false: colores.surfaceContainerHighest, true: colores.primary }}
                         accessibilityLabel={`Cambiar rol de ${u.nombre}`}
                       />
                       <Text className="text-body-sm text-on-surface">{cambiarAdmin ? 'Admin' : 'Operador'}</Text>
@@ -267,7 +268,7 @@ export default function AdminUsuarios() {
                       accessibilityRole="button"
                       accessibilityLabel={`Eliminar usuario ${u.nombre}`}
                     >
-                      <MaterialIcons name="person-remove" size={18} color="#B71C1C" />
+                      <MaterialIcons name="person-remove" size={18} color={colores.onErrorContainer} />
                     </Pressable>
                   </View>
                 )}

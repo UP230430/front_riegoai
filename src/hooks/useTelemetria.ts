@@ -1,9 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import * as telemetriaService from '@/services/telemetriaService';
-import * as plantasService from '@/services/plantasService';
+import { telemetriaService, plantasService } from '@/services';
+import type { EstadoDispositivo } from '@/types';
 
-/** Refresca TODAS las queries cada vez que el simulador muta lecturas. */
+/** Refresca TODAS las queries cada vez que el simulador muta lecturas.
+ *
+ * Es la ÚNICA fuente de refresco en vivo: las queries no usan refetchInterval,
+ * de modo que hay un solo reloj (el del simulador) y sin parpadeo extra.
+ */
 export function useSimuladorInvalidador(): void {
   const qc = useQueryClient();
   useEffect(() => telemetriaService.subscribirCambios(() => {
@@ -19,7 +23,6 @@ export function useLecturas() {
   return useQuery({
     queryKey: ['lecturas'],
     queryFn: telemetriaService.lecturaActual,
-    refetchInterval: 2_000,
   });
 }
 
@@ -27,7 +30,6 @@ export function useDispositivo() {
   return useQuery({
     queryKey: ['dispositivo'],
     queryFn: telemetriaService.estadoDispositivo,
-    refetchInterval: 3_000,
   });
 }
 
@@ -72,27 +74,28 @@ export function useRegarAhora() {
   });
 }
 
+type TipoActuador = ['bomba', 'ventilador', 'leds', 'valvula', 'modoAuto', 'emergencia', 'online'];
+
+/** Función de servicio por cada actuación (abierta a nuevos actuadores).
+ */
+const ACCIONES: Record<
+  TipoActuador[number],
+  (valor: boolean) => Promise<EstadoDispositivo>
+> = {
+  bomba: telemetriaService.alternarBomba,
+  ventilador: telemetriaService.alternarVentilador,
+  leds: telemetriaService.alternarLeds,
+  valvula: telemetriaService.alternarValvula,
+  modoAuto: telemetriaService.establecerModoAuto,
+  online: telemetriaService.establecerDispositivoEnLinea,
+  emergencia: () => telemetriaService.paradaEmergencia(),
+};
+
 export function useActuador() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (vars: { tipo: 'bomba' | 'ventilador' | 'leds' | 'valvula' | 'modoAuto' | 'emergencia' | 'online'; valor?: boolean }) => {
-      switch (vars.tipo) {
-        case 'ventilador':
-          return telemetriaService.alternarVentilador(Boolean(vars.valor));
-        case 'leds':
-          return telemetriaService.alternarLeds(Boolean(vars.valor));
-        case 'valvula':
-          return telemetriaService.alternarValvula(Boolean(vars.valor));
-        case 'modoAuto':
-          return telemetriaService.establecerModoAuto(Boolean(vars.valor));
-        case 'emergencia':
-          return telemetriaService.paradaEmergencia();
-        case 'online':
-          return telemetriaService.establecerDispositivoEnLinea(Boolean(vars.valor));
-        default:
-          return telemetriaService.estadoDispositivo();
-      }
-    },
+    mutationFn: ({ tipo, valor }: { tipo: TipoActuador[number]; valor?: boolean }) =>
+      ACCIONES[tipo](Boolean(valor)),
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ['dispositivo'] });
       qc.invalidateQueries({ queryKey: ['eventos'] });

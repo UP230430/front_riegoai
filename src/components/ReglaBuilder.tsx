@@ -3,6 +3,7 @@ import { Modal, Pressable, Text, TextInput, View } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import type { Regla } from '@/types';
 import { hapticoToque } from '@/utils/haptico';
+import { colores } from '@/theme/tokens';
 import { Boton } from '@/components/ui/Botones';
 
 const SENSORES: { id: Regla['si']['sensor']; etiqueta: string }[] = [
@@ -20,10 +21,10 @@ const ACTUADORES: { id: Regla['entonces']['actuador']; etiqueta: string }[] = [
   { id: 'bomba', etiqueta: 'Bomba GPIO 17' },
   { id: 'ventilador', etiqueta: 'Ventilador GPIO 27' },
 ];
-const PRIORIDADES: { id: Regla['prioridad']; etiqueta: string; color: string }[] = [
-  { id: 'alta', etiqueta: 'Alta', color: 'bg-error-container text-on-error-container' },
-  { id: 'media', etiqueta: 'Media', color: 'bg-surface-container-high text-on-surface' },
-  { id: 'baja', etiqueta: 'Baja', color: 'bg-surface-container text-on-surface-variant' },
+const PRIORIDADES: { id: Regla['prioridad']; etiqueta: string; fondo: string; texto: string }[] = [
+  { id: 'alta', etiqueta: 'Alta', fondo: 'bg-error-container', texto: 'text-on-error-container' },
+  { id: 'media', etiqueta: 'Media', fondo: 'bg-surface-container-high', texto: 'text-on-surface' },
+  { id: 'baja', etiqueta: 'Baja', fondo: 'bg-surface-container', texto: 'text-on-surface-variant' },
 ];
 
 function ParaConSlider({ valor, onChange }: { valor: number; onChange: (v: number) => void }) {
@@ -59,6 +60,7 @@ export function ReglaBuilder({ visible, onClose, onGuardar, regla }: Props) {
   const [umbral, setUmbral] = useState<string>(String(regla?.si.umbral ?? 35));
   const [actuador, setActuador] = useState<Regla['entonces']['actuador']>(regla?.entonces.actuador ?? 'bomba');
   const [dosis, setDosis] = useState<number>(regla?.entonces.volumenMl ?? 180);
+  const [prioridad, setPrioridad] = useState<Regla['prioridad']>(regla?.prioridad ?? 'media');
   const reset = () => {
     setPaso(1);
     if (!regla) {
@@ -67,6 +69,7 @@ export function ReglaBuilder({ visible, onClose, onGuardar, regla }: Props) {
       setUmbral('35');
       setActuador('bomba');
       setDosis(180);
+      setPrioridad('media');
     }
   };
   const guardar = () => {
@@ -75,7 +78,7 @@ export function ReglaBuilder({ visible, onClose, onGuardar, regla }: Props) {
     onGuardar({
       nombre: regla?.nombre ?? `Regla ${SENSORES.find((s) => s.id === sensor)?.etiqueta}`,
       activa: regla?.activa ?? true,
-      prioridad: regla?.prioridad ?? 'media',
+      prioridad,
       ultimaEjecucion: regla?.ultimaEjecucion,
       si: { sensor, operador, umbral: umbral || String(valorUmbral) },
       entonces: {
@@ -95,7 +98,7 @@ export function ReglaBuilder({ visible, onClose, onGuardar, regla }: Props) {
           <View className="flex-row items-center justify-between pb-2">
             <Text className="text-title-md text-on-surface">{regla ? 'Modificar' : 'Crear'} regla inteligente</Text>
             <Pressable onPress={onClose} accessibilityRole="button" accessibilityLabel="Cerrar bot" className="h-10 w-10 items-center justify-center">
-              <MaterialIcons name="close" size={24} color="#555555" />
+              <MaterialIcons name="close" size={24} color={colores.onSurfaceVariant} />
             </Pressable>
           </View>
           <Text className="pb-1 text-[11px] text-primary">
@@ -116,7 +119,7 @@ export function ReglaBuilder({ visible, onClose, onGuardar, regla }: Props) {
                     accessibilityLabel={`Disparador: ${s.etiqueta}`}
                   >
                     <Text className="text-body-md text-on-surface">{s.etiqueta}</Text>
-                    {sensor === s.id && <MaterialIcons name="check" size={22} color="#1B5E20" />}
+                    {sensor === s.id && <MaterialIcons name="check" size={22} color={colores.onPrimaryContainer} />}
                   </Pressable>
                 ))}
               </View>
@@ -163,7 +166,7 @@ export function ReglaBuilder({ visible, onClose, onGuardar, regla }: Props) {
                     accessibilityLabel={`Actuador: ${a.etiqueta}`}
                   >
                     <Text className="text-body-md text-on-surface">{a.etiqueta}</Text>
-                    {actuador === a.id && <MaterialIcons name="check" size={22} color="#1B5E20" />}
+                    {actuador === a.id && <MaterialIcons name="check" size={22} color={colores.onPrimaryContainer} />}
                   </Pressable>
                 ))}
                 {actuador === 'bomba' && (
@@ -175,11 +178,25 @@ export function ReglaBuilder({ visible, onClose, onGuardar, regla }: Props) {
             )}
             {paso === 4 && (
               <View className="flex-col gap-3">
+                <Text className="text-body-sm text-on-surface-variant">Prioridad de ejecución</Text>
                 <View className="flex-row flex-wrap gap-2">
                   {PRIORIDADES.map((p) => (
-                    <Text key={p.id} className={`rounded-full px-3 py-1 ${p.color} text-label-md`}>
-                      {p.etiqueta}
-                    </Text>
+                    <Pressable
+                      key={p.id}
+                      onPress={() => {
+                        hapticoToque();
+                        setPrioridad(p.id);
+                      }}
+                      className={`min-h-[40px] justify-center rounded-full px-4 py-1 ${
+                        prioridad === p.id ? p.fondo : 'bg-surface-container'
+                      }`}
+                      accessibilityRole="radio"
+                      accessibilityLabel={`Prioridad: ${p.etiqueta}`}
+                    >
+                      <Text className={`text-label-md font-semibold ${prioridad === p.id ? p.texto : 'text-on-surface'}`}>
+                        {p.etiqueta}{prioridad === p.id ? ' ✓' : ''}
+                      </Text>
+                    </Pressable>
                   ))}
                 </View>
                 <Text className="text-body-sm text-on-surface-variant">

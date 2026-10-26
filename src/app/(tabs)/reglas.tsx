@@ -3,8 +3,8 @@ import { Modal, Pressable, ScrollView, Text, TextInput, View } from 'react-nativ
 import { MaterialIcons } from '@expo/vector-icons';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import type { CategoriaRegla, Regla, Umbrales } from '@/types';
-import * as reglasService from '@/services/reglasService';
-import * as telemetriaService from '@/services/telemetriaService';
+import { reglasService } from '@/services';
+import { colores } from '@/theme/tokens';
 import { Header } from '@/components/ui/Header';
 import { Vacio, ErrorConReintento, Skeleton, BannerOffline } from '@/components/ui/Estados';
 import { RuleCard } from '@/components/RuleCard';
@@ -140,7 +140,7 @@ export default function Reglas() {
           <View className="flex-row items-center justify-between rounded-2xl bg-primary p-3 shadow-sm">
             <View className="flex-row items-center gap-2">
               <View className="h-10 w-10 items-center justify-center rounded-xl bg-white/20">
-                <MaterialIcons name="psychology" size={22} color="#FFFFFF" />
+                <MaterialIcons name="psychology" size={22} color={colores.onPrimary} />
               </View>
               <View className="flex-col">
                 <Text className="text-title-sm font-semibold text-on-primary">Motor de Reglas</Text>
@@ -172,7 +172,7 @@ export default function Reglas() {
         {!esAdmin && (
           <View className="px-gutter-mobile pt-2">
             <View className="flex-row items-start gap-2 rounded-xl bg-surface-container px-3 py-2.5">
-              <MaterialIcons name="lock-outline" size={16} color="#555555" />
+              <MaterialIcons name="lock-outline" size={16} color={colores.onSurfaceVariant} />
               <View className="flex-1">
                 <Text className="text-label-md font-semibold text-on-surface">Solo lectura · rol Operador</Text>
                 <Text className="text-[11px] text-on-surface-variant">
@@ -249,7 +249,7 @@ export default function Reglas() {
               accessibilityRole="button"
               accessibilityLabel="Crear nueva regla"
             >
-              <MaterialIcons name="add-circle-outline" size={20} color="#2E7D32" />
+              <MaterialIcons name="add-circle-outline" size={20} color={colores.primary} />
               <Text className="text-title-sm font-semibold text-primary">Crear nueva regla SI / ENTONCES</Text>
             </Pressable>
           </View>
@@ -258,6 +258,7 @@ export default function Reglas() {
 
       {/* Builder crear/editar */}
       <ReglaBuilder
+        key={builderRegla?.id ?? 'nueva'}
         visible={builderVisible}
         regla={builderRegla ?? undefined}
         onClose={() => {
@@ -327,7 +328,7 @@ function ModalUmbrales({
           <View className="flex-row items-center justify-between">
             <Text className="text-title-md text-on-surface">Umbrales del sistema</Text>
             <Pressable onPress={cerrar} accessibilityRole="button" className="h-10 w-10 items-center justify-center">
-              <MaterialIcons name="close" size={24} color="#555555" />
+              <MaterialIcons name="close" size={24} color={colores.onSurfaceVariant} />
             </Pressable>
           </View>
           <ScrollView className="pt-2" contentContainerStyle={{ gap: 10 }}>

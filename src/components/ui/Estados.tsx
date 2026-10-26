@@ -1,5 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Pressable, Text, View, type DimensionValue } from 'react-native';
+import { colores } from '@/theme/tokens';
 
 /** Bloque de carga (skeleton) con pulso suave. */
 export function Skeleton({
@@ -34,7 +35,7 @@ export function Vacio({
   return (
     <View className="items-center justify-center gap-2 rounded-xl bg-surface-container-lowest p-6 shadow-sm">
       <View className="h-12 w-12 items-center justify-center rounded-full bg-surface-container-high">
-        <MaterialIcons name="filter-list-off" size={24} color="#555555" />
+        <MaterialIcons name="filter-list-off" size={24} color={colores.onSurfaceVariant} />
       </View>
       <Text className="text-title-sm text-on-surface" style={{ fontWeight: '600' }}>
         {titulo}
@@ -61,14 +62,14 @@ export function ErrorConReintento({
 }) {
   return (
     <View className="items-center gap-3 rounded-xl bg-error-container p-5">
-      <MaterialIcons name="error-outline" size={26} color="#B71C1C" />
+      <MaterialIcons name="error-outline" size={26} color={colores.onErrorContainer} />
       <Text className="text-body-md text-on-error-container text-center">{mensaje}</Text>
       <Pressable
         onPress={intentarDeNuevo}
         accessibilityRole="button"
-        className="rounded-xl bg-on-error-container px-4 py-2 min-h-[44px] justify-center"
+        className="rounded-xl bg-error px-4 py-2 min-h-[44px] justify-center"
       >
-        <Text className="text-label-lg text-error-container" style={{ fontWeight: '600' }}>
+        <Text className="text-label-lg text-on-error" style={{ fontWeight: '600' }}>
           Reintentar
         </Text>
       </Pressable>
@@ -81,7 +82,7 @@ export function BannerOffline({ ultimaSync }: { ultimaSync: string }) {
   const hora = new Date(ultimaSync).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
   return (
     <View className="flex-row items-center gap-2 rounded-xl bg-tertiary-container px-3 py-2.5">
-      <MaterialIcons name="cloud-off" size={18} color="#E65100" />
+      <MaterialIcons name="cloud-off" size={18} color={colores.onTertiaryContainer} />
       <View className="flex-1">
         <Text className="text-label-md text-on-tertiary-container" style={{ fontWeight: '600' }}>
           Sin conexión con la RPi · Mostrando últimos datos ({hora} h)

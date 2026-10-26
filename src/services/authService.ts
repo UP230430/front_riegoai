@@ -1,6 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
-import { espera, leer, escribir } from './bd';
-import type { Rol, Usuario } from '@/types';
+import { espera, leer } from './bd';
+import type { Usuario } from '@/types';
 
 // Servicio de autenticación mock. La UI solo habla con estas funciones.
 
@@ -47,22 +47,4 @@ export async function usuarioActual(): Promise<Usuario | null> {
 
 export async function cerrarSesion(): Promise<void> {
   await SecureStore.deleteItemAsync(CLAVE_SESION);
-}
-
-/** Cambio de rol instantáneo (solo demo, desde Perfil). */
-export async function cambiarRol(usuarioId: string, rol: Rol): Promise<Usuario> {
-  await espera(200);
-  await escribir((bd) => {
-    const u = bd.usuarios.find((x) => x.id === usuarioId);
-    if (u) u.rol = rol;
-  });
-  const bd = await leer();
-  const actualizado = bd.usuarios.find((u) => u.id === usuarioId);
-  if (!actualizado) throw new Error('Usuario no encontrado');
-  return actualizado;
-}
-
-export async function nombreDeUsuarioPorId(id: string): Promise<string | undefined> {
-  const bd = await leer();
-  return bd.usuarios.find((u) => u.id === id)?.nombre;
 }

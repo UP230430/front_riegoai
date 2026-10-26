@@ -4,8 +4,6 @@ import type { Regla, Umbrales } from '@/types';
 
 // Reglas SI/ENTONCES ejecutadas localmente en la RPi (mock).
 
-export interface EntradaRegla extends Omit<Regla, 'id'> {}
-
 export async function listarReglas(): Promise<Regla[]> {
   await espera(280);
   const bd = await leer();

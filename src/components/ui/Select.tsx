@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Modal, Pressable, Text, View } from 'react-native';
 import { useState } from 'react';
+import { colores } from '@/theme/tokens';
 
 export interface Opcion<T extends string> {
   valor: T;
@@ -33,7 +34,7 @@ export function Select<T extends string>({ valor, opciones, onChange, prefijo }:
           {prefijo ? `${prefijo} ` : ''}
           {activa.etiqueta}
         </Text>
-        <MaterialIcons name="expand-more" size={18} color="#555555" />
+        <MaterialIcons name="expand-more" size={18} color={colores.onSurfaceVariant} />
       </Pressable>
 
       <Modal visible={abierto} transparent animationType="fade" onRequestClose={() => setAbierto(false)}>
@@ -52,7 +53,7 @@ export function Select<T extends string>({ valor, opciones, onChange, prefijo }:
                 <Text className={`text-body-md ${o.valor === valor ? 'font-semibold text-on-primary-container' : 'text-on-surface'}`}>
                   {o.etiqueta}
                 </Text>
-                {o.valor === valor && <MaterialIcons name="check" size={18} color="#1B5E20" />}
+                {o.valor === valor && <MaterialIcons name="check" size={18} color={colores.onPrimaryContainer} />}
               </Pressable>
             ))}
           </View>

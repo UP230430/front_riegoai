@@ -37,12 +37,6 @@ function estadoSemilla(): EstadoBd {
   };
 }
 
-/** Empezar con datos ya cargados se usa al inicio de la app. */
-export function ObtenerEstado(): EstadoBd {
-  if (!estado) estado = estadoSemilla();
-  return estado;
-}
-
 async function cargar(): Promise<EstadoBd> {
   if (estado) return estado;
   if (cargando) return cargando;
@@ -93,10 +87,4 @@ export async function escribir(mutacion: (bd: EstadoBd) => void): Promise<void> 
   const bd = await leer();
   mutacion(bd);
   persistir();
-}
-
-/** Útil para modo demo: restablece la semilla. */
-export async function restablecerBd(): Promise<void> {
-  estado = estadoSemilla();
-  await AsyncStorage.removeItem(CLAVE).catch(() => undefined);
 }

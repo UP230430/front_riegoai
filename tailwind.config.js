@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'class',
   content: ['./src/**/*.{ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
@@ -65,7 +66,11 @@ module.exports = {
         'space-xl': '2rem',
       },
       fontFamily: {
-        body: ['Inter'],
+        // Nombres reales con los que @expo-google-fonts/inter registra cada peso
+        body: ['Inter_400Regular'],
+        'body-medium': ['Inter_500Medium'],
+        'body-semibold': ['Inter_600SemiBold'],
+        'body-bold': ['Inter_700Bold'],
       },
       fontSize: {
         'display-lg': ['48px', { lineHeight: '56px', fontWeight: '700' }],

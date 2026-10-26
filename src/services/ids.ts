@@ -10,4 +10,3 @@ export const nuevoIdRiego = () => nuevo('r');
 export const nuevoIdRegla = () => nuevo('rr');
 export const nuevoIdEscaneo = () => nuevo('s');
 export const nuevoIdUsuario = () => nuevo('u');
-export const nuevoIdNotificacion = () => nuevo('n');

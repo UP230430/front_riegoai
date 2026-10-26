@@ -4,9 +4,9 @@ import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Card } from '@/components/ui/Card';
+import { colores } from '@/theme/tokens';
 import { AnilloProgreso, GraficaLinea } from '@/components/Graficas';
 import {
   useHistorialPlanta,
@@ -15,8 +15,7 @@ import {
   usePrediccion,
   useSimuladorInvalidador,
 } from '@/hooks/useTelemetria';
-import { etiquetaEstadoSalud } from '@/utils/formato';
-import { proximoRelativo } from '@/utils/formato';
+import { etiquetaEstadoSalud, proximoRelativo } from '@/utils/formato';
 import { riegosACsv } from '@/utils/csv';
 import { hapticoToque } from '@/utils/haptico';
 
@@ -58,7 +57,8 @@ export default function DetallePlanta() {
 
   const p = planta.data;
   const salud = etiquetaEstadoSalud(p.diagnostico.estado);
-  const serie = historial.data ?? [];
+  // Serie completa de 14 días; el rango "Día" acota a los días más recientes.
+  const serie = historial.data ? (rango === 'dia' ? historial.data.slice(-4) : historial.data) : [];
   const humedadSerie = serie.map((d) => d.humedad);
   const tempSerie = serie.map((d) => d.temperatura);
   const luzSerie = serie.map((d) => d.luz);
@@ -101,7 +101,7 @@ export default function DetallePlanta() {
           accessibilityRole="button"
           accessibilityLabel="Volver"
         >
-          <MaterialIcons name="arrow-back" size={20} color="#1B1B1B" />
+          <MaterialIcons name="arrow-back" size={20} color={colores.onSurface} />
         </Pressable>
         <View className="flex-col">
           <Text className="text-title-md text-on-surface" style={{ fontWeight: '600' }}>
@@ -140,7 +140,7 @@ export default function DetallePlanta() {
               </Text>
               <Text className="text-body-sm text-on-surface-variant">{p.diagnostico.descripcion}</Text>
             </View>
-            <AnilloProgreso pct={p.diagnostico.vigorPct} color="#2E7D32" />
+            <AnilloProgreso pct={p.diagnostico.vigorPct} color={colores.primary} />
           </View>
 
           <View className="flex-row gap-2">
@@ -190,10 +190,10 @@ export default function DetallePlanta() {
         <View className="mt-2 gap-2">
           {(
             [
-              { titulo: 'Humedad de suelo (%)', puntos: humedadSerie, color: '#1E88E5', sufijo: '%' },
-              { titulo: 'Temperatura (°C)', puntos: tempSerie, color: '#FB8C00', sufijo: '°C' },
-              { titulo: 'Luz (lx)', puntos: luzSerie, color: '#2E7D32', sufijo: 'lx' },
-              { titulo: 'Agua suministrada (mL/día)', puntos: aguaSerie, color: '#0060a8', sufijo: 'mL' },
+              { titulo: 'Humedad de suelo (%)', puntos: humedadSerie, color: colores.secondary, sufijo: '%' },
+              { titulo: 'Temperatura (°C)', puntos: tempSerie, color: colores.tertiary, sufijo: '°C' },
+              { titulo: 'Luz (lx)', puntos: luzSerie, color: colores.primary, sufijo: 'lx' },
+              { titulo: 'Agua suministrada (mL/día)', puntos: aguaSerie, color: colores.onSecondaryContainer, sufijo: 'mL' },
             ] as const
           ).map((g) => (
             <Card key={g.titulo}>
@@ -228,7 +228,7 @@ export default function DetallePlanta() {
           className="mt-4 min-h-[48px] flex-row items-center justify-center gap-2 rounded-xl bg-surface-container-low py-3"
           accessibilityRole="button"
         >
-          <MaterialIcons name="file-download" size={18} color="#2E7D32" />
+          <MaterialIcons name="file-download" size={18} color={colores.primary} />
           <Text className="text-label-lg font-semibold text-primary">Compartir historial (CSV)</Text>
         </Pressable>
       </ScrollView>

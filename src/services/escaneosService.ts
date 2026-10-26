@@ -1,7 +1,7 @@
 import { espera, escribir, leer } from './bd';
 import { nuevoIdEscaneo } from './ids';
 import { IMG_VISTA_VIVA, PLANTAS_SEMILLA } from '@/mocks/datos';
-import type { EscaneoPlanta, EstadoSaludEscaneo } from '@/types';
+import type { EscaneoPlanta } from '@/types';
 
 // Identificación de plantas con foto (mock de Azure AI Vision).
 

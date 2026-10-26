@@ -1,6 +1,5 @@
 import { espera, leer } from './bd';
 import { simulador } from '@/mocks/simulador';
-import { subscribirCambios } from './telemetriaService';
 import type { Planta } from '@/types';
 
 // Servicio de plantas/zonas (carrusel de Inicio, detalle de planta).
@@ -32,9 +31,4 @@ export async function obtenerPlanta(id: string): Promise<Planta> {
       humedadSueloPct: humedades[id] ?? planta.diagnostico.humedadSueloPct,
     },
   };
-}
-
-/** Suscripción para que el carrusel refleje cambios del simulador. */
-export function subscribirPlantas(fn: () => void): () => void {
-  return subscribirCambios(fn);
 }

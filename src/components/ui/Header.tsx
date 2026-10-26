@@ -1,6 +1,7 @@
-import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 import { Pressable, Text, View } from 'react-native';
 import { Link } from 'expo-router';
+import { colores } from '@/theme/tokens';
 import { StatusPill } from './StatusPill';
 
 interface Props {
@@ -15,7 +16,7 @@ export function Header({ tituloPantalla, online, inicialesUsuario }: Props) {
     <View className="h-16 flex-row items-center justify-between px-gutter-mobile">
       <View className="flex-row items-center gap-space-xs">
         <View className="h-10 w-10 items-center justify-center rounded-xl bg-primary-container">
-          <MaterialIcons name="eco" size={22} color="#2E7D32" />
+          <MaterialIcons name="eco" size={22} color={colores.primary} />
         </View>
         <View className="flex flex-col">
           <Text className="text-title-sm text-on-surface" style={{ fontWeight: '600' }}>

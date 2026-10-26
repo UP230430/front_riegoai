@@ -2,8 +2,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { FlatList, Pressable, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { useQuery } from '@tanstack/react-query';
-import * as viverosService from '@/services/viverosService';
+import { viverosService } from '@/services';
 import NurseryMap from '@/components/mapa/NurseryMap';
+import { colores } from '@/theme/tokens';
 
 /** Pantalla vivero-mapa: componentemap aislado + lista de viveros cercanos. */
 export default function ViveroMapa() {
@@ -27,7 +28,7 @@ export default function ViveroMapa() {
           accessibilityRole="button"
           accessibilityLabel="Cerrar"
         >
-          <MaterialIcons name="close" size={20} color="#1B1B1B" />
+          <MaterialIcons name="close" size={20} color={colores.onSurface} />
         </Pressable>
         <View className="flex-col">
           <Text className="text-title-md text-on-surface" style={{ fontWeight: '600' }}>

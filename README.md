@@ -13,19 +13,12 @@ npm install
 npx expo start        # escanea el QR con Expo Go (Android/iOS)
 ```
 
-Con dispositivo/emulador:
-
-```bash
-npx expo start --android   # o --ios
-```
-
 Verificaciones de calidad:
 
 ```bash
 npx tsc --noEmit      # typecheck estricto
 npx expo lint         # ESLint
 npx expo-doctor       # diagnóstico de dependencias
-npx expo export       # bundle de producción (smoke test)
 ```
 
 ---
@@ -37,72 +30,66 @@ npx expo export       # bundle de producción (smoke test)
 | `admin` | admin@demo.com | demo123 |
 | `operador` | operador@demo.com | demo123 |
 
-- **Operador**: ve estado, histórico, cámara, riego manual, identifica plantas y consulta reglas en **solo lectura**.
-- **Admin**: además crea/edita reglas, edita umbrales, parada de emergencia y **gestión de usuarios** (`/admin/usuarios`).
-- Lo que no corresponde al rol se deshabilita con candado 🔒 y una explicación.
-- La sesión persiste con `expo-secure-store`.
-
-Tip: entra con más de un dispositivo (o reinicia cambiando de usuario) para ver los dos roles.
+- **Operador**: consulta en **solo lectura** (estado, histórico, cámara, reglas) y puede regar manualmente.
+- **Admin**: además crea/edita reglas, umbrales, parada de emergencia y **gestión de usuarios**.
+- Lo que no corresponde al rol se deshabilita con candado 🔒. La sesión persiste con `expo-secure-store`.
 
 ---
 
-## 📁 Estructura
+## 📐 Arquitectura (SOLID)
+
+Cada capa tiene **una sola responsabilidad** y depende de abstracciones, no de detalles:
 
 ```
 src/
-  app/               Pantallas (Expo Router)
-    (auth)/login.tsx
-    (tabs)/index.tsx        Inicio (telemetría y control)
-    (tabs)/timeline.tsx     Historial y alertas
-    (tabs)/camara.tsx       En vivo + Identificar planta
-    (tabs)/reglas.tsx       Reglas de automatización
-    planta/[id].tsx         Detalle con gráficas
-    vivero-mapa.tsx         Mapa de viveros
-    admin/usuarios.tsx      Gestión de usuarios (admin)
-    perfil.tsx / notificaciones.tsx
-  services/          ⭐ La UI SOLO habla con estas funciones
-    bd.ts              Estado en memoria espejado en AsyncStorage
-    authService.ts / telemetriaService.ts / reglasService.ts /
-    plantasService.ts / timelineService.ts / escaneosService.ts /
-    viverosService.ts / usuariosService.ts / notificacionesService.ts
-  mocks/             Datos semilla + simulador en vivo (ticking SGD cada 2 s)
-  components/        Card, Chip, Header, RuleCard, Graficas (SVG), Mapa…
-  hooks/ store/ theme/ types/ utils/
+  app/                  Pantallas (Expo Router): ORQUESTAN, no dibujan ni calculan
+    (tabs)/index.tsx      Inicio: usa MetricCard / MatrizGpio / ModalRegar
+    (tabs)/{timeline,camara,reglas}.tsx · planta/[id] · vivero-mapa · admin/usuarios
+  components/
+    ui/                 Piezas presentationales puras (Card, MetricCard, MatrizGpio,
+                        ActuadorRow, Estados, Select, Chip, Botones…) — reciben datos
+                        y callbacks, nada de servicios
+    ModalRegar · RuleCard · TimelineItem · Graficas (SVG) · LiveFeed · mapa/
+  hooks/useTelemetria.ts  Único acoplamiento UI↔datos: queries/mutations de React Query
+  services/  ⭐           La UI SOLO importa de '@/services' (index re-exporta)
+    index.ts             clap de dominio; `bd.ts` (infraestructura) NO se re-exporta
+  mocks/                 Datos semilla + simulador en vivo (cada 2 s)
+  theme/tokens.ts        Única fuente de color: cero hex en componentes
+  types/                 Contratos compartidos (index.ts) + css.d.ts
+  utils/                 formato / csv / haptico
 ```
+
+- **SRP**: la lógica de negocio vive en `services/`; las pantallas solo coordinan hooks y componentes; los componentes `ui/` solo presentan.
+- **Abierto/cerrado**: `useTelemetria → ACCIONES` mapea cada tipo de actuación a su función de servicio; agregar un actuador nuevo es una entrada del mapa, no un `switch` en el componente.
+- **Inversión de dependencias**: la UI desconoce AsyncStorage, `Math.random()` y el simulador — todo el negocio pasa por los `*Service`.
 
 ### 🔄 Cómo reemplazar el mock por una API real
 
-Todo el negocio pasa por `src/services/*`. Por ejemplo, para conectar el backend:
-
-1. Crea `telemetriaServiceReal.ts` con la misma **firma de funciones** que `telemetriaService.ts` (público en `src/hooks/useTelemetria.ts`).
-2. Cambia el `import * as telemetriaService from '@/services/telemetriaService'` → `Real` (conviene un único index re-exportado para tocar un solo archivo).
-3. Los tipos están en `src/types/index.ts`: mantén esos contratos.
-
-No toques los componentes: nada de la UI conoce AsyncStorage, `Math.random()` ni el simulador.
+1. Crea `telemetriaServiceReal.ts` con la misma **firma** que `telemetriaService.ts`.
+2. En `src/services/index.ts`, cambia el re-export → tocas **un solo archivo**.
+3. Mantén los contratos de `src/types/index.ts`. Los componentes ni se enteran.
 
 ---
 
 ## ✨ Funciones principales
 
-- **Inicio**: carrusel de cultivos, diagnóstico "Azure AI" con % de vigor, métricas en vivo, matrices RPi GPIO, botón **Regar ahora** (mL o segundos, con límite de seguridad), ventilador, nivel de depósito y **parada de emergencia** (admin).
+- **Inicio**: carrusel de cultivos, diagnóstico "Azure AI" con % de vigor, métricas en vivo (tarjetas `MetricCard`), matriz RPi GPIO (`MatrizGpio`), **Regar ahora** (mL o segundos, con límite de seguridad), ventilador, LED, depósito y **parada de emergencia** (admin).
 - **Timeline**: riegos/alertas/clima/inspecciones con filtros, scroll infinito, pull-to-refresh y **exportación CSV**.
-- **Cámara**: modo "En vivo" (LiveFeed refresco cada 2 s, listo para stream real) y "Identificar" (foto → análisis → especie, confianza y salud; historial). "Dónde conseguirla" abre el mapa.
-- **Reglas** SI/ENTONCES con switch, prioridad, "Probar ahora", builder de 4 pasos y umbrales (solo admin). Incluye las reglas KPI: regar < 35% → 60%, ventilador ≥ 30 °C → OFF ≤ 28 °C, bloqueo de bomba por depósito < 10%, máx. 10 s y espera mínima entre riegos.
-- **Simulador vivo**: cada 2 s varía sensores y de vez en cuando dispara riegos y alertas (con notificaciones locales).
+- **Cámara**: modo "En vivo" (LiveFeed cada 2 s, listo para stream real) y "Identificar" (foto → especie, confianza y salud; historial). "Dónde conseguirla" abre el mapa.
+- **Reglas** SI/ENTONCES con switch, prioridad, "Probar ahora", builder de 4 pasos y umbrales (solo admin). Incluye las reglas KPI: regar < 35% → 60%, ventilador ≥ 30 °C → OFF ≤ 28 °C, bloqueo de bomba por depósito < 10%, máx. 600 mL y espera mínima entre riegos.
+- **Simulador vivo**: cada 2 s varía sensores y dispara riegos y alertas (con notificaciones locales).
 - **Modo offline**: alterna RPi Online/Offline desde **Perfil**. La BD y sesión persisten en AsyncStorage/SecureStore.
 
 ---
 
 ## ⚠️ Módulos nativos y Expo Go
 
-Todo funciona en **Expo Go** salvo `react-native-maps` en **web** (ahí se muestra una vista demo; en Android/iOS nativo sí funciona). No obligatoria para la demo: si algún día se usa un SDK nativo fuera de Expo Go, documentarlo con `npx expo run:android|ios` o `eas build --profile development`.
-
-Notificaciones: en Android 13+ se pide permiso de primer uso y se crea un canal (`riegosmart-demo`); en Expo Go funcionan las locales.
+Todo funciona en **Expo Go** salvo `react-native-maps` en **web** (ahí se muestra una vista demo; en Android/iOS nativo sí funciona). Notificaciones: en Android 13+ se pide permiso de primer uso y se crea un canal (`riegosmart-demo`).
 
 ---
 
 ## 📐 Convenciones
 
-- Tokens de diseño de `design/…/DESIGN.md` centralizados en `tailwind.config.js` y `src/theme/tokens.ts` (primary `#2E7D32`, Inter 400/500/600/700, radios 16px, pill 9999px).
-- NativeWind v4 · nombres de clase en español (`bg-surface-container`, `text-on-primary`, `p-space-md`).
-- TypeScript estricto, sin `any`; componentes puros y reutilizables; commits Conventional Commits.
+- Colores centralizados en `src/theme/tokens.ts` y `tailwind.config.js` (primary `#2E7D32`). **Prohibido un hex fuera de ambos.**
+- NativeWind v4 · nombres de clase en español (`bg-surface-container`, `text-on-primary`).
+- TypeScript estricto, sin `any`; commits Conventional Commits.

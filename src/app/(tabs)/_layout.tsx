@@ -1,7 +1,7 @@
-import { Tabs, Redirect } from 'expo-router';
-import { MaterialIcons } from '@expo/vector-icons';
-import { colores } from '@/theme/tokens';
 import { useSesion } from '@/store/useSesionStore';
+import { colores } from '@/theme/tokens';
+import { MaterialIcons } from '@expo/vector-icons';
+import { Redirect, Tabs } from 'expo-router';
 import type { ComponentProps } from 'react';
 
 type NombreIcono = ComponentProps<typeof MaterialIcons>['name'];
@@ -20,14 +20,14 @@ export default function LayoutPestanas() {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: colores.primary,
-        tabBarInactiveTintColor: '#555555',
+        tabBarInactiveTintColor: colores.onSurfaceVariant,
         tabBarLabelStyle: { fontSize: 11, fontWeight: '500', fontFamily: undefined },
         tabBarStyle: { height: 64, paddingBottom: 8, paddingTop: 6 },
         sceneStyle: { backgroundColor: colores.surface },
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="inicio"
         options={{
           title: 'Inicio',
           tabBarIcon: ({ color }) => <Icono nombre="home" color={String(color)} />,
@@ -54,6 +54,8 @@ export default function LayoutPestanas() {
           tabBarIcon: ({ color }) => <Icono nombre="smart-toy" color={String(color)} />,
         }}
       />
+      {/* Sigue siendo una ruta válida (/notificaciones), pero sin pestaña en la barra. */}
+      <Tabs.Screen name="notificaciones" options={{ href: null }} />
     </Tabs>
   );
 }

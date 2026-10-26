@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  calidad:
+    name: TypeScript + ESLint + export de humo
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Typecheck estricto
+        run: npx tsc --noEmit
+
+      - name: ESLint
+        run: npx expo lint
+
+      - name: Bundle de producción (smoke test)
+        run: npx expo export --platform web --output-dir dist-ci

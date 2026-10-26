@@ -4,7 +4,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import type { TipoNotificacion } from '@/types';
-import * as notificacionesService from '@/services/notificacionesService';
+import { colores } from '@/theme/tokens';
+import { notificacionesService } from '@/services';
 import { Confirmar } from '@/components/Confirmar';
 import { Vacio } from '@/components/ui/Estados';
 import { useSesion } from '@/store/useSesionStore';
@@ -12,11 +13,11 @@ import { hapticoExito, hapticoToque } from '@/utils/haptico';
 import { relativo } from '@/utils/formato';
 
 const ICONO_TIPO: Record<TipoNotificacion, { icono: string; fondo: string; color: string }> = {
-  deposito_vacio: { icono: 'warning', fondo: 'bg-error-container', color: '#B71C1C' },
-  estres_hidrico: { icono: 'water-drop', fondo: 'bg-secondary-container', color: '#0D47A1' },
-  enfermedad_detectada: { icono: 'bug-report', fondo: 'bg-tertiary-container', color: '#E65100' },
-  riego_realizado: { icono: 'check-circle', fondo: 'bg-primary-container', color: '#1B5E20' },
-  dispositivo_desconectado: { icono: 'cloud-off', fondo: 'bg-surface-container-high', color: '#555555' },
+  deposito_vacio: { icono: 'warning', fondo: 'bg-error-container', color: colores.onErrorContainer },
+  estres_hidrico: { icono: 'water-drop', fondo: 'bg-secondary-container', color: colores.onSecondaryContainer },
+  enfermedad_detectada: { icono: 'bug-report', fondo: 'bg-tertiary-container', color: colores.onTertiaryContainer },
+  riego_realizado: { icono: 'check-circle', fondo: 'bg-primary-container', color: colores.onPrimaryContainer },
+  dispositivo_desconectado: { icono: 'cloud-off', fondo: 'bg-surface-container-high', color: colores.onSurfaceVariant },
 };
 
 export default function Notificaciones() {
@@ -50,7 +51,7 @@ export default function Notificaciones() {
             accessibilityLabel="Volver"
             className="h-10 w-10 items-center justify-center rounded-full bg-surface-container-low"
           >
-            <MaterialIcons name="arrow-back" size={22} color="#1B1B1B" />
+            <MaterialIcons name="arrow-back" size={22} color={colores.onSurface} />
           </Pressable>
           <View>
             <Text className="text-headline-sm font-bold text-on-surface">Notificaciones</Text>
@@ -76,7 +77,7 @@ export default function Notificaciones() {
               <MaterialIcons
                 name={estatus === 'granted' ? 'notifications-active' : 'notifications-off'}
                 size={22}
-                color={estatus === 'granted' ? '#1B5E20' : '#555555'}
+                color={estatus === 'granted' ? colores.onPrimaryContainer : colores.onSurfaceVariant}
               />
               <View className="flex-1">
                 <Text

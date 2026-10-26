@@ -21,6 +21,8 @@ type Estado = {
   humedades: Record<string, number>;
   /** Caída gradual por "Regar ahora". */
   regandoHasta: number;
+  /** Planta en riego en curso (por "Regar ahora" o reglas). */
+  regandoPlantaId: string | null;
   riegos: Riego[];
   /** Último riego mostrado por planta (semilla de la demo). */
   ultimosRiegos: Record<string, Riego>;
@@ -69,6 +71,7 @@ const estado: Estado = {
   dispositivo: dispositivoInicial(),
   humedades: humedadesIniciales(),
   regandoHasta: 0,
+  regandoPlantaId: null,
   riegos: [],
   ultimosRiegos: {
     'albahaca-1': {
@@ -147,15 +150,19 @@ function tick(): void {
 
   const lecturas = estado.lecturas;
 
-  // Mejor de dos mundos: la albahaca es la zona de referencia de la pantalla Inicio.
-  const humedadRef = estado.humedades['albahaca-1'] ?? lecturas.humedadSuelo;
+  // El riego afecta a la planta que está regando; la albahaca es la zona
+  // de referencia del sensor A0 de la pantalla Inicio.
+  const plantaRegando = estado.regandoPlantaId ?? 'albahaca-1';
+  const humedadRef = estado.humedades[plantaRegando] ?? lecturas.humedadSuelo;
 
   // Regando: subida creíble y gradual de humedad.
   if (dispositivo.bomba) {
     const objetivo = estado.regandoHasta;
     const nueva = Math.min(objetivo, humedadRef + azar(2.5, 4.5));
-    estado.humedades['albahaca-1'] = parseFloat(nueva.toFixed(1));
-    lecturas.humedadSuelo = estado.humedades['albahaca-1'];
+    estado.humedades[plantaRegando] = parseFloat(nueva.toFixed(1));
+    if (plantaRegando === 'albahaca-1') {
+      lecturas.humedadSuelo = estado.humedades[plantaRegando];
+    }
     lecturas.caudalLmin = parseFloat(azar(0.9, 1.3).toFixed(2));
     estado.depositoRestanteL = Math.max(0, estado.depositoRestanteL - 0.006);
     lecturas.nivelDeposito = Math.round((estado.depositoRestanteL / VOLUMEN_DEPOSITO_L) * 100);
@@ -168,8 +175,10 @@ function tick(): void {
     const deriva = -0.12 - (dispositivo.ventilador ? 0.05 : 0); // el calor seca más
     const ruido = azar(-0.1, 0.1);
     const nueva = Math.max(20, Math.min(80, humedadRef + deriva + ruido));
-    estado.humedades['albahaca-1'] = parseFloat(nueva.toFixed(1));
-    lecturas.humedadSuelo = estado.humedades['albahaca-1'];
+    estado.humedades[plantaRegando] = parseFloat(nueva.toFixed(1));
+    if (plantaRegando === 'albahaca-1') {
+      lecturas.humedadSuelo = estado.humedades[plantaRegando];
+    }
   }
 
   // Temperatura: fluctúa alrededor de 26-28, ligeramente mayor si el ventilador está apagado.
@@ -246,6 +255,7 @@ function ejecutarReglasPero(): void {
     const objetivo = umbrales.humedadObjetivoPct;
     dispositivo.bomba = true;
     estado.regandoHasta = objetivo;
+    estado.regandoPlantaId = 'albahaca-1';
     riegoParcial = { enCurso: true, objetivo, plantaId: 'albahaca-1' };
     evento('riego', {
       titulo: 'Riego por Umbral Autónomo',
@@ -282,7 +292,7 @@ function ejecutarReglasPero(): void {
   // Cierre del riego al llegar al volumen objetivo registra el Riego.
   if (riegoParcial?.enCurso && !dispositivo.bomba) {
     riegoParcial.enCurso = false;
-    const tras = estado.humedades['albahaca-1'];
+    const tras = estado.humedades[riegoParcial.plantaId] ?? lecturas.humedadSuelo;
     const riego: Riego = {
       id: nuevoId('r'),
       plantaId: riegoParcial.plantaId,
@@ -319,11 +329,8 @@ function ejecutarReglasPero(): void {
 }
 
 export const simulador = {
-  iniciado: false,
-
   iniciar(): void {
     if (temporizador) return;
-    this.iniciado = true;
     temporizador = setInterval(tick, TICK_MS);
   },
 
@@ -331,7 +338,6 @@ export const simulador = {
     if (temporizador) {
       clearInterval(temporizador);
       temporizador = null;
-      this.iniciado = false;
     }
   },
 
@@ -342,10 +348,6 @@ export const simulador = {
 
   todosLosEventos(): EventoTimeline[] {
     return [...estado.eventos];
-  },
-
-  losRiegos(): Riego[] {
-    return [...estado.riegos];
   },
 
   limpiarHistorial(): void {
@@ -375,15 +377,25 @@ export const simulador = {
   regarHasta(plantaId: string, objetivoPct: number): void {
     estado.dispositivo.bomba = true;
     estado.regandoHasta = objetivoPct;
+    estado.regandoPlantaId = plantaId;
     estado.dispositivo.ledIndicador = ledSegunEstado();
     riegoParcial = { enCurso: true, objetivo: objetivoPct, plantaId };
+    notificar();
+  },
+
+  /** Apaga la bomba sin cerrar automáticamente el ciclo de riego. */
+  detenerBomba(): void {
+    estado.dispositivo.bomba = false;
+    estado.lecturas.caudalLmin = 0;
+    estado.dispositivo.ledIndicador = ledSegunEstado();
     notificar();
   },
 
   marcarFinRiego(riego: Riego, eventoFinal: EventoTimeline): void {
     if (riegoParcial) riegoParcial.enCurso = false;
     estado.riegos.unshift(riego);
-    estado.eventos.unshift(eventoFinal);
+    // Vía evento() para heredar la notificación local según el tipo.
+    evento(eventoFinal.tipo, eventoFinal);
   },
 
   dispositivoEnLinea(online: boolean): void {

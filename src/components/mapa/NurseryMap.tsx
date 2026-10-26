@@ -1,5 +1,5 @@
 import { Platform, Text, View } from 'react-native';
-import { useMemo, type ComponentType, type PropsWithChildren } from 'react';
+import { type ComponentType, type PropsWithChildren } from 'react';
 import type { Vivero } from '@/types';
 import type { PuntoMapa } from '@/services/viverosService';
 
@@ -48,8 +48,8 @@ function MapaNativo({ usuario, viveros }: Props) {
       description: string;
     }>;
   };
-  const MapView = useMemo(() => mod.default, []);
-  const Marker = useMemo(() => mod.Marker, []);
+  const MapView = mod.default;
+  const Marker = mod.Marker;
 
   return (
     <MapView

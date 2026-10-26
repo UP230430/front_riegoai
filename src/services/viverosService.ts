@@ -10,11 +10,6 @@ export interface PuntoMapa {
   longitud: number;
 }
 
-export async function ubicacionUsuario(): Promise<PuntoMapa> {
-  await espera(150);
-  return { ...UBICACION_USUARIO_MOCK };
-}
-
 export async function listarViverosCercanos(): Promise<{ usuario: PuntoMapa; viveros: Vivero[] }> {
   await espera(300);
   const bd = await leer();

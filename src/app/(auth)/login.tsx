@@ -1,15 +1,15 @@
-import { MaterialIcons } from '@expo/vector-icons';
-import * as ExpoHaptics from 'expo-haptics';
-import { Redirect, useRouter } from 'expo-router';
-import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 import { Boton } from '@/components/ui/Botones';
 import { useSesion } from '@/store/useSesionStore';
+import { colores } from '@/theme/tokens';
+import { MaterialIcons } from '@expo/vector-icons';
+import * as ExpoHaptics from 'expo-haptics';
+import { Redirect } from 'expo-router';
+import { useState } from 'react';
+import { KeyboardAvoidingView, Platform, Pressable, Text, TextInput, View } from 'react-native';
 
 const EMAIL_REGEXP = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export default function Login() {
-  const router = useRouter();
   const { usuario, iniciarSesion, cerrarSesion } = useSesion();
 
   const [correo, setCorreo] = useState('');
@@ -17,15 +17,7 @@ export default function Login() {
   const [errores, setErrores] = useState<{ correo?: string; contrasena?: string; general?: string }>({});
   const [cargando, setCargando] = useState(false);
 
-  if (usuario) return <Redirect href="/(tabs)" />;
-
-  function validar(): boolean {
-    const nuevos: typeof errores = {};
-    if (!EMAIL_REGEXP.test(correo.trim())) nuevos.correo = 'Escribe un correo válido (ej. admin@demo.com).';
-    if (contrasena.length < 6) nuevos.contrasena = 'La contraseña debe tener al menos 6 caracteres.';
-    setErrores(nuevos);
-    return Object.keys(nuevos).length === 0;
-  }
+  if (usuario) return <Redirect href="/(tabs)/inicio" />;
 
   async function entrar(email = correo, pass = contrasena) {
     setErrores({});
@@ -36,9 +28,8 @@ export default function Login() {
     setCargando(true);
     try {
       await iniciarSesion(email.trim(), pass);
-      // Sesión persistente: expRouter redirige; el haptic confirma.
+      // La sesión en el store dispara el <Redirect> hacia (tabs).
       ExpoHaptics.notificationAsync(ExpoHaptics.NotificationFeedbackType.Success).catch(() => undefined);
-      router.replace('/(tabs)');
     } catch (e) {
       ExpoHaptics.notificationAsync(ExpoHaptics.NotificationFeedbackType.Error).catch(() => undefined);
       setErrores({ general: e instanceof Error ? e.message : 'No se pudo iniciar sesión.' });
@@ -58,7 +49,7 @@ export default function Login() {
       <View className="flex-1 justify-center px-gutter-mobile">
         <View className="mb-8 items-center gap-2">
           <View className="h-16 w-16 items-center justify-center rounded-2xl bg-primary-container">
-            <MaterialIcons name="eco" size={34} color="#2E7D32" />
+            <MaterialIcons name="eco" size={34} color={colores.primary} />
           </View>
           <Text className="text-headline-lg-mobile text-on-surface" style={{ fontWeight: '700' }}>
             RiegoSmart IA
@@ -78,7 +69,7 @@ export default function Login() {
               autoComplete="email"
               accessibilityLabel="Correo electrónico"
               className={`rounded-xl bg-surface-container-lowest px-4 py-3 text-body-md text-on-surface min-h-[48px] ${errores.correo ? 'border border-error' : ''}`}
-              placeholderTextColor="#555555"
+              placeholderTextColor={colores.onSurfaceVariant}
             />
             {errores.correo && <Text className="text-label-md text-error">{errores.correo}</Text>}
           </View>
@@ -92,7 +83,7 @@ export default function Login() {
               secureTextEntry
               accessibilityLabel="Contraseña"
               className={`rounded-xl bg-surface-container-lowest px-4 py-3 text-body-md text-on-surface min-h-[48px] ${errores.contrasena ? 'border border-error' : ''}`}
-              placeholderTextColor="#555555"
+              placeholderTextColor={colores.onSurfaceVariant}
             />
             {errores.contrasena && <Text className="text-label-md text-error">{errores.contrasena}</Text>}
           </View>

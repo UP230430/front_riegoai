@@ -16,7 +16,7 @@ interface EstadoSesion {
   fijarUsuario: (usuario: Usuario) => void;
 }
 
-export const useSesion = create<EstadoSesion>((set, get) => ({
+export const useSesion = create<EstadoSesion>((set) => ({
   usuario: null,
   inicializando: true,
 
@@ -38,8 +38,3 @@ export const useSesion = create<EstadoSesion>((set, get) => ({
 
   fijarUsuario: (usuario) => set({ usuario }),
 }));
-
-/** ¿El rol actual puede hacer la acción? Guard útil para candados de rol. */
-export function esAdmin(): boolean {
-  return useSesion.getState()?.usuario?.rol === 'admin';
-}

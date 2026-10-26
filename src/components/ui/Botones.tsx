@@ -1,4 +1,5 @@
 import { ActivityIndicator, Pressable, Text } from 'react-native';
+import { colores } from '@/theme/tokens';
 
 interface PropsBase {
   texto: string;
@@ -37,7 +38,7 @@ export function Boton({ variante = 'primario', texto, deshabilitado, cargando, o
       className={`h-12 flex-row items-center justify-center gap-2 rounded-xl px-4 min-h-[48px] ${FONDOS[variante]} ${activo ? 'active:opacity-90' : 'opacity-50'} ${className}`}
       {...resto}
     >
-      {cargando && <ActivityIndicator size="small" color="#FFFFFF" />}
+      {cargando && <ActivityIndicator size="small" color={variante === 'secundario' ? colores.onSurface : colores.onPrimary} />}
       <Text className={`text-[14px] leading-5 font-semibold ${TEXTOS[variante]}`}>{texto}</Text>
     </Pressable>
   );

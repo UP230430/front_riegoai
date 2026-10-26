@@ -1,13 +1,14 @@
 import Svg, { Circle, Defs, LinearGradient, Path, Polyline, Stop } from 'react-native-svg';
 import { Text, View } from 'react-native';
+import { colores } from '@/theme/tokens';
 
 /** Anillo SVG de progreso (humedad del Inicio). */
 export function AnilloProgreso({
   pct,
   tamano = 40,
   trazo = 3.5,
-  color = '#1E88E5',
-  colorFondo = '#D7DFD1',
+  color = colores.secondary,
+  colorFondo = colores.surfaceContainerHighest,
 }: {
   pct: number;
   tamano?: number;
@@ -42,7 +43,7 @@ export function AnilloProgreso({
 }
 
 /** Barra de nivel horizontal (depósito). */
-export function BarraNivel({ pct, color = '#1E88E5' }: { pct: number; color?: string }) {
+export function BarraNivel({ pct, color = colores.secondary }: { pct: number; color?: string }) {
   const ancho = Math.min(100, Math.max(0, pct));
   return (
     <View className="h-2 w-full overflow-hidden rounded-full bg-surface-container-highest">
@@ -54,7 +55,7 @@ export function BarraNivel({ pct, color = '#1E88E5' }: { pct: number; color?: st
 /** Gráfica de línea ligera (react-native-svg) para el detalle de planta. */
 export function GraficaLinea({
   puntos,
-  color = '#1E88E5',
+  color = colores.secondary,
   alto = 130,
   sufijo = '',
 }: {
@@ -96,10 +97,10 @@ export function GraficaLinea({
         <Polyline points={linea} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" strokeLinecap="round" />
       </Svg>
       <View className="flex-row justify-between px-1">
-        <Text style={{ fontSize: 9, color: '#555555' }}>
+        <Text style={{ fontSize: 9, color: colores.onSurfaceVariant }}>
           mín {fmt(min)} {sufijo}
         </Text>
-        <Text style={{ fontSize: 9, color: '#555555' }}>
+        <Text style={{ fontSize: 9, color: colores.onSurfaceVariant }}>
           máx {fmt(max)} {sufijo}
         </Text>
       </View>

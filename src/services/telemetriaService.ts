@@ -1,8 +1,8 @@
-import { PLANTAS_SEMILLA } from '@/mocks/datos';
+import { PLANTAS_SEMILLA, UMBRALES_SEMILLA } from '@/mocks/datos';
 import { simulador } from '@/mocks/simulador';
-import { espera, escribir } from './bd';
+import { espera } from './bd';
 import { nuevoIdEvento, nuevoIdRiego } from './ids';
-import type { Diagnostico, EventoTimeline, LecturaSensor, Riego, EstadoDispositivo } from '@/types';
+import type { EventoTimeline, LecturaSensor, Riego, EstadoDispositivo } from '@/types';
 
 // Telemetría en vivo + actuadores. Todo del simulador mock; interfaz lista
 // para apuntar a una RPi real más adelante.
@@ -86,6 +86,17 @@ export async function regarAhora(
   return riego;
 }
 
+/** Enciende la bomba hacia el objetivo de humedad, o la apaga. */
+export async function alternarBomba(activa: boolean): Promise<EstadoDispositivo> {
+  await espera(250);
+  if (activa) {
+    simulador.regarHasta('albahaca-1', UMBRALES_SEMILLA.humedadObjetivoPct);
+  } else {
+    simulador.detenerBomba();
+  }
+  return simulador.dispositivo();
+}
+
 export async function alternarVentilador(activa: boolean): Promise<EstadoDispositivo> {
   await espera(250);
   simulador.establecerVentilador(activa);
@@ -163,22 +174,4 @@ export async function prediccion(plantaId: string): Promise<{
     tendencia: 'creciente',
     resumen: 'Crecimiento óptimo · Estomas hidratados',
   };
-}
-
-/** Guardado del diagnóstico IA actual por planta (se usa desde Inicio). */
-export async function actualizarDiagnostico(
-  plantaId: string,
-  diagnostico: Pick<Diagnostico, 'vigorPct' | 'estado' | 'descripcion'> & { humedadSueloPct?: number },
-): Promise<void> {
-  await escribir((bd) => {
-    const planta = bd.plantas.find((p) => p.id === plantaId);
-    if (planta) {
-      planta.diagnostico = {
-        ...planta.diagnostico,
-        ...diagnostico,
-        humedadSueloPct: diagnostico.humedadSueloPct ?? simulador.lecturas().humedadSuelo,
-        fecha: new Date().toISOString(),
-      };
-    }
-  });
 }

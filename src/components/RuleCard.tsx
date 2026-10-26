@@ -1,6 +1,7 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Pressable, Switch, Text, View } from 'react-native';
 import type { CategoriaRegla, Regla } from '@/types';
+import { colores } from '@/theme/tokens';
 import { relativo } from '@/utils/formato';
 import { hapticoToque } from '@/utils/haptico';
 
@@ -19,10 +20,10 @@ const FONDO_CATEGORIA: Record<CategoriaRegla, string> = {
 };
 
 const COLOR_CATEGORIA: Record<CategoriaRegla, string> = {
-  riego: '#1B5E20',
-  clima: '#E65100',
-  iluminacion: '#0D47A1',
-  seguridad: '#B71C1C',
+  riego: colores.onPrimaryContainer,
+  clima: colores.onTertiaryContainer,
+  iluminacion: colores.onSecondaryContainer,
+  seguridad: colores.onErrorContainer,
 };
 
 const TEXTO_PRIORIDAD: Record<Regla['prioridad'], string> = {
@@ -31,7 +32,7 @@ const TEXTO_PRIORIDAD: Record<Regla['prioridad'], string> = {
   baja: 'Prioridad Baja',
 };
 
-export function descripcionSi(regla: Regla): string {
+function descripcionSi(regla: Regla): string {
   const sensor = {
     humedadSuelo: 'Humedad sustrato',
     temperatura: 'Temperatura',
@@ -48,7 +49,7 @@ export function descripcionSi(regla: Regla): string {
   return `${sensor} ${op} ${regla.si.umbral}${unidad}${durante}`;
 }
 
-export function descripcionEntonces(regla: Regla): string {
+function descripcionEntonces(regla: Regla): string {
   const actuador = {
     bomba: 'Bomba GPIO 17',
     ventilador: 'Ventilador GPIO 27',
@@ -115,7 +116,7 @@ export function RuleCard({ regla, esAdmin, onToggle, onEditar, onProbar, onElimi
             onToggle(v);
           }}
           disabled={!editable}
-          trackColor={{ false: '#D7DFD1', true: '#2E7D32' }}
+          trackColor={{ false: colores.surfaceContainerHighest, true: colores.primary }}
           accessibilityLabel={`Regla ${regla.nombre}: ${regla.activa ? 'activa' : 'pausada'}${editable ? '' : ' (solo admin)'}`}
         />
       </View>
@@ -153,7 +154,7 @@ export function RuleCard({ regla, esAdmin, onToggle, onEditar, onProbar, onElimi
               accessibilityRole="button"
               accessibilityLabel={`Modificar regla ${regla.nombre}`}
             >
-              <MaterialIcons name="edit" size={16} color="#1B1B1B" />
+              <MaterialIcons name="edit" size={16} color={colores.onSurface} />
               <Text className="text-label-md text-on-surface">{regla.bloqueadaPorSeguridad ? 'Ver' : 'Modificar'}</Text>
             </Pressable>
           )}
@@ -167,7 +168,7 @@ export function RuleCard({ regla, esAdmin, onToggle, onEditar, onProbar, onElimi
               accessibilityRole="button"
               accessibilityLabel={`Probar regla ${regla.nombre}`}
             >
-              <MaterialIcons name="play-arrow" size={16} color="#0D47A1" />
+              <MaterialIcons name="play-arrow" size={16} color={colores.onSecondaryContainer} />
               <Text className="text-label-md text-on-secondary-container">Probar ahora</Text>
             </Pressable>
           )}
@@ -178,7 +179,7 @@ export function RuleCard({ regla, esAdmin, onToggle, onEditar, onProbar, onElimi
               accessibilityRole="button"
               accessibilityLabel={`Eliminar regla ${regla.nombre}`}
             >
-              <MaterialIcons name="delete-outline" size={16} color="#B71C1C" />
+              <MaterialIcons name="delete-outline" size={16} color={colores.onErrorContainer} />
             </Pressable>
           )}
         </View>

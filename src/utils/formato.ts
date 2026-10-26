@@ -1,15 +1,7 @@
 /** Utilidades de formato en español, compartidas por todas las pantallas. */
 
-export function horaCorta(iso: string): string {
+function horaCorta(iso: string): string {
   return new Date(iso).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-}
-
-export function horaConSegundos(iso: string): string {
-  return new Date(iso).toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-}
-
-export function fechaLarga(iso: string): string {
-  return new Date(iso).toLocaleDateString('es-MX', { day: '2-digit', month: 'short', year: 'numeric' });
 }
 
 /** "Hace 15 min", "Hoy, 14:15 h", "Ayer, 18:30 h". */
@@ -38,10 +30,6 @@ export function proximoRelativo(iso: string): string {
   return `En ${dias} día${dias === 1 ? '' : 's'}`;
 }
 
-export function numeroConSeparador(n: number): string {
-  return n.toLocaleString('es-MX');
-}
-
 export function etiquetaEstadoSalud(estado: string): { texto: string; color: 'primary' | 'tertiary' | 'error' } {
   switch (estado) {
     case 'sana':
@@ -52,20 +40,5 @@ export function etiquetaEstadoSalud(estado: string): { texto: string; color: 'pr
       return { texto: 'Estrés hídrico · Observar', color: 'tertiary' };
     default:
       return { texto: 'Hoja enferma / plaga', color: 'error' };
-  }
-}
-
-export function etiquetaTipoEvento(tipo: string): string {
-  switch (tipo) {
-    case 'riego':
-      return 'Riego';
-    case 'alerta':
-      return 'Alerta';
-    case 'clima':
-      return 'Clima';
-    case 'ia':
-      return 'Azure IA';
-    default:
-      return 'Evento';
   }
 }

@@ -1,5 +1,4 @@
 import { Modal, Pressable, Text, View } from 'react-native';
-import { colores, espaciado } from '@/theme/tokens';
 
 interface Props {
   visible: boolean;
@@ -41,6 +40,3 @@ export function Confirmar({ visible, titulo, descripcion, textoConfirmar, textoC
     </Modal>
   );
 }
-
-// Reexport para accesibilidad de tokens en pantallas sin style import.
-export { colores, espaciado };

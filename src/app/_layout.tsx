@@ -1,5 +1,5 @@
-import '../global.css';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { simulador } from '@/mocks/simulador';
+import { useSesion } from '@/store/useSesionStore';
 import {
   Inter_400Regular,
   Inter_500Medium,
@@ -7,12 +7,12 @@ import {
   Inter_700Bold,
   useFonts,
 } from '@expo-google-fonts/inter';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
-import { useSesion } from '@/store/useSesionStore';
-import { simulador } from '@/mocks/simulador';
+import '../global.css';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,7 +31,7 @@ function Puerta() {
     Inter_700Bold,
   });
 
-  const { usuario, inicializando, inicializar } = useSesion();
+  const { inicializando, inicializar } = useSesion();
 
   useEffect(() => {
     void inicializar();
@@ -39,10 +39,12 @@ function Puerta() {
   }, [inicializar]);
 
   useEffect(() => {
-    if (fontCargada && usuario !== null && !inicializando) {
+    // Ocultar el splash en cuanto haya fuente y sesión resuelta, haya
+    // usuario o no (sin sesión se va a /login y el splash no debe colgarse).
+    if (fontCargada && !inicializando) {
       void SplashScreen.hideAsync();
     }
-  }, [fontCargada, usuario, inicializando]);
+  }, [fontCargada, inicializando]);
 
   return (
     <Stack screenOptions={{ headerShown: false }}>

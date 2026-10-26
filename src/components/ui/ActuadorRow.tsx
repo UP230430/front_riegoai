@@ -1,6 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, Switch, Text, View } from 'react-native';
 import { hapticoToque } from '@/utils/haptico';
+import { colores } from '@/theme/tokens';
 
 interface Props {
   icono: string;
@@ -33,7 +34,7 @@ export function ActuadorRow({
         accessibilityLabel={`${titulo}. Bloqueado: ${motivoBloqueo ?? 'requiere permisos'}`}
       >
         <View className="flex-row items-center gap-2">
-          <MaterialCommunityIcons name={icono as never} size={20} color="#555555" />
+          <MaterialCommunityIcons name={icono as never} size={20} color={colores.onSurfaceVariant} />
           <View className="flex-col">
             <Text className="text-[12px] leading-[16px] font-medium text-on-surface">{titulo}</Text>
             <Text className="text-[11px] text-on-surface-variant">
@@ -41,7 +42,7 @@ export function ActuadorRow({
             </Text>
           </View>
         </View>
-        <Switch disabled trackColor={{ false: '#D7DFD1', true: '#2E7D32' }} value={false} />
+        <Switch disabled trackColor={{ false: colores.surfaceContainerHighest, true: colores.primary }} value={false} />
       </View>
     );
   }
@@ -60,9 +61,9 @@ export function ActuadorRow({
           hapticoToque();
           onChange(v);
         }}
-        trackColor={{ false: '#D7DFD1', true: '#2E7D32' }}
-        thumbColor="#FFFFFF"
-        ios_backgroundColor="#D7DFD1"
+        trackColor={{ false: colores.surfaceContainerHighest, true: colores.primary }}
+        thumbColor={colores.surfaceBright}
+        ios_backgroundColor={colores.surfaceContainerHighest}
         accessibilityLabel={titulo}
         style={{ transform: [{ scale: 1.1 }] }}
       />
