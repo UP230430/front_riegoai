@@ -1,6 +1,7 @@
-import { Tabs } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import { MaterialIcons } from '@expo/vector-icons';
 import { colores } from '@/theme/tokens';
+import { useSesion } from '@/store/useSesionStore';
 import type { ComponentProps } from 'react';
 
 type NombreIcono = ComponentProps<typeof MaterialIcons>['name'];
@@ -9,8 +10,11 @@ function Icono({ nombre, color }: { nombre: NombreIcono; color: string }) {
   return <MaterialIcons name={nombre} size={24} color={color} />;
 }
 
-/** Barra inferior de 4 pestañas con áreas táctiles ≥ 44 px. */
+/** Barra inferior de 4 pestañas con áreas táctiles ≥ 44 px y protección de sesión. */
 export default function LayoutPestanas() {
+  const { usuario, inicializando } = useSesion();
+  if (!inicializando && !usuario) return <Redirect href="/(auth)/login" />;
+
   return (
     <Tabs
       screenOptions={{
