@@ -21,6 +21,8 @@ type Estado = {
   /** Caída gradual por "Regar ahora". */
   regandoHasta: number;
   riegos: Riego[];
+  /** Último riego mostrado por planta (semilla de la demo). */
+  ultimosRiegos: Record<string, Riego>;
   eventos: EventoTimeline[];
   depositoRestanteL: number;
 };
@@ -67,6 +69,26 @@ const estado: Estado = {
   humedades: humedadesIniciales(),
   regandoHasta: 0,
   riegos: [],
+  ultimosRiegos: {
+    'albahaca-1': {
+      id: 'r-sem-1',
+      plantaId: 'albahaca-1',
+      inicio: new Date(new Date().setHours(10, 30, 0, 0)).toISOString(),
+      duracionSeg: 12,
+      volumenMl: 180,
+      origen: 'automatico',
+      humedadAntes: 38,
+      humedadDespues: 54,
+    },
+    'menta-1': {
+      id: 'r-sem-2',
+      plantaId: 'menta-1',
+      inicio: new Date(new Date().setHours(8, 0, 0, 0)).toISOString(),
+      duracionSeg: 9,
+      volumenMl: 200,
+      origen: 'manual',
+    },
+  },
   eventos: [...EVENTOS_SEMILLA],
   depositoRestanteL: 3.8,
 };
@@ -300,6 +322,14 @@ export const simulador = {
   anadirRiego(riego: Riego, eventoRiego: EventoTimeline): void {
     estado.riegos.unshift(riego);
     estado.eventos.unshift(eventoRiego);
+  },
+
+  ultimoRiego(plantaId: string): Riego | undefined {
+    return estado.ultimosRiegos[plantaId];
+  },
+
+  registrarUltimoRiego(riego: Riego): void {
+    estado.ultimosRiegos[riego.plantaId] = riego;
   },
 
   humedades(): Record<string, number> {

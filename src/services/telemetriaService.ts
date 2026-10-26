@@ -22,6 +22,12 @@ export async function estadoDispositivo(): Promise<EstadoDispositivo> {
   return simulador.dispositivo();
 }
 
+/** Último riego mostrado en la tarjeta "Programado" del Inicio. */
+export async function ultimoRiego(plantaId: string): Promise<Riego | null> {
+  await espera(100);
+  return simulador.ultimoRiego(plantaId) ?? null;
+}
+
 export function subscribirCambios(fn: () => void): () => void {
   simulador.iniciar();
   return simulador.suscribir(fn);
@@ -76,6 +82,7 @@ export async function regarAhora(
     origen: 'manual',
   };
   simulador.marcarFinRiego(riego, evento);
+  simulador.registrarUltimoRiego(riego);
   return riego;
 }
 
