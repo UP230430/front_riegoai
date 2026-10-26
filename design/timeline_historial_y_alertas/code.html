@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html lang="es-MX"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "surface-container-lowest": "#FFFFFF", "on-surface-variant": "#40493d", "error-container": "#ffdad6", "outline-variant": "#E0E0E0", "surface-container-highest": "#e0e4da", "on-secondary-fixed": "#001c38", "on-tertiary-container": "#E65100", "surface-variant": "#e0e4da", "inverse-on-surface": "#eef2e8", "surface-container": "#E8ECE4", "on-error": "#FFFFFF", "on-tertiary-fixed-variant": "#6d3a00", "on-secondary": "#FFFFFF", "surface-container-low": "#F1F4EE", "inverse-surface": "#2d322b", "tertiary-fixed-dim": "#ffb77b", "error": "#E53935", "on-primary": "#ffffff", "on-secondary-container": "#003663", "surface-container-high": "#E0E6DB", "surface-bright": "#f7fbf0", "on-primary-fixed-variant": "#005312", "on-error-container": "#B71C1C", "on-secondary-fixed-variant": "#004881", "on-tertiary": "#FFFFFF", "secondary": "#0060a8", "on-tertiary-fixed": "#2e1500", "background": "#f7fbf0", "on-surface": "#1B1B1B", "primary": "#0d631b", "tertiary-fixed": "ffdcc2", "on-primary-fixed": "#002204", "secondary-fixed": "#d3e4ff", "primary-container": "#C8E6C9", "outline": "#81C784", "on-primary-container": "#1B5E20", "surface-tint": "#1b6d24", "tertiary": "#FB8C00", "tertiary-container": "#a65b00", "on-background": "#181d17", "primary-fixed": "#a3f69c", "secondary-container": "#BBDEFB", "secondary-fixed-dim": "#a2c9ff", "inverse-primary": "#88d982", "surface-dim": "#EBEFE9", "surface": "#F6F8F5", "primary-fixed-dim": "#88d982" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "margin": "2rem", "gutter-mobile": "0.75rem", "space-lg": "1.5rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-md": "1rem", "gutter": "1rem", "space-xs": "0.25rem", "margin-mobile": "1rem" }, fontFamily: { "label-sm": ["Inter"], "title-md": ["Inter"], "title-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "display-lg-mobile": ["Inter"], "headline-md": ["Inter"], "display-lg": ["Inter"], "title-sm": ["Inter"], "label-lg": ["Inter"], "headline-sm": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"], "label-md": ["Inter"], "body-sm": ["Inter"], "body-lg": ["Inter"] }, fontSize: { "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "700" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-4 flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-xs"><div class="flex items-center justify-center w-10 h-10 rounded-full bg-primary-container text-primary"><span class="material-symbols-outlined text-[24px]">water_drop</span></div><div class="flex flex-col"><div class="flex items-center gap-1"><span class="font-title-md text-title-md text-on-surface tracking-tight">RiegoSmart</span><span class="font-label-sm text-label-sm text-primary font-bold">IA</span></div><span class="font-body-sm text-body-sm text-on-surface-variant truncate max-w-[110px]">Timeline</span></div></div><div class="flex items-center gap-space-sm"><div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container/70"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-sm text-label-sm text-on-primary-container font-semibold">RPi Online</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full px-4 pb-6 space-y-4">
+<!-- Encabezado de la Pantalla -->
+<div class="flex items-center justify-between pt-2">
+<div class="flex flex-col">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface tracking-tight">Timeline</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Línea temporal de riegos, eventos y alertas del invernadero</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface active:scale-95 transition-transform" id="btn-export" title="Exportar reporte">
+<span class="material-symbols-outlined text-[20px]">ios_share</span>
+</button>
+</div>
+<!-- Resumen Rápido (KPIs del día) -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-3 shadow-sm flex items-center justify-between">
+<div class="flex flex-col items-center flex-1">
+<div class="flex items-center gap-1 text-secondary">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Riegos hoy</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface mt-0.5">3 <span class="text-label-md font-label-md text-on-surface-variant font-normal">(540 mL)</span></span>
+</div>
+<div class="w-px h-8 bg-surface-container-highest"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="flex items-center gap-1 text-tertiary">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Alertas</span>
+</div>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="font-title-md text-title-md text-on-surface">1</span>
+<span class="w-2 h-2 rounded-full bg-error animate-ping"></span>
+</div>
+</div>
+<div class="w-px h-8 bg-surface-container-highest"></div>
+<div class="flex flex-col items-center flex-1">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Eficiencia</span>
+</div>
+<span class="font-title-md text-title-md text-primary mt-0.5">96%</span>
+</div>
+</div>
+<!-- Barra de Filtros Selectores -->
+<div class="flex items-center gap-2">
+<!-- Selector Planta Dropdown simulado -->
+<div class="relative flex-1">
+<select class="w-full appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl py-2 pl-3 pr-8 shadow-sm focus:outline-none" id="plant-filter">
+<option value="all">🌱 Todas las plantas</option>
+<option value="tomate">🍅 Tomate Cherry</option>
+<option value="albahaca">🌿 Albahaca #1</option>
+<option value="menta">🍃 Menta Piperita</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+<!-- Filtro Temporal Dropdown -->
+<div class="relative flex-1">
+<select class="w-full appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md rounded-xl py-2 pl-3 pr-8 shadow-sm focus:outline-none" id="time-filter">
+<option value="today">📅 Hoy</option>
+<option value="week">Últimos 7 días</option>
+<option value="month">Este mes</option>
+</select>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant absolute right-2.5 top-2.5 pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Chips de Categoría Scroll Horizontal -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar -mx-4 px-4 py-1">
+<button class="filter-chip active flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm whitespace-nowrap transition-all" data-category="all">
+<span>Todo</span>
+<span class="bg-primary-container text-on-primary-container px-1.5 py-0.2 rounded-full font-label-sm text-label-sm">18</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shadow-sm whitespace-nowrap active:scale-95 transition-all" data-category="riego">
+<span class="text-secondary">💧</span>
+<span>Riegos</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shadow-sm whitespace-nowrap active:scale-95 transition-all" data-category="alerta">
+<span class="text-tertiary">⚠️</span>
+<span>Alertas</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shadow-sm whitespace-nowrap active:scale-95 transition-all" data-category="clima">
+<span class="text-error">🌡️</span>
+<span>Clima</span>
+</button>
+<button class="filter-chip flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shadow-sm whitespace-nowrap active:scale-95 transition-all" data-category="ia">
+<span class="text-primary">🤖</span>
+<span>Azure IA</span>
+</button>
+</div>
+<!-- Contenedor Principal de la Línea de Tiempo -->
+<div class="relative w-full pl-3 mt-2">
+<!-- Línea vertical conectora -->
+<div class="absolute left-6 top-3 bottom-4 w-0.5 bg-surface-container-high z-0"></div>
+<div class="space-y-5 relative z-10" id="timeline-feed">
+<!-- EVENTO 1: Alerta Fitosanitaria IA -->
+<div class="timeline-item flex items-start gap-3" data-category="alerta ia" data-plant="tomate">
+<!-- Nodo de la línea -->
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-error-container text-on-error-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">warning</span>
+</div>
+<!-- Tarjeta del evento -->
+<div class="flex-1 bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-2.5">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-error font-semibold uppercase tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> Hace 15 min
+            </span>
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">
+              🍅 Tomate Cherry
+            </span>
+</div>
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Alerta Fitosanitaria · Azure AI</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Ligera clorosis detectada en hojas basales con <span class="font-semibold text-on-surface">86% de certeza</span> mediante visión computacional.
+            </p>
+</div>
+<!-- Mini Previsualización de la Hoja -->
+<div class="w-full h-24 rounded-lg overflow-hidden relative shadow-inner">
+<img class="w-full h-full object-cover" data-alt="Close-up macro photography of healthy tomato leaves showing mild yellow chlorosis spots near lower base, smart greenhouse agricultural vision analysis lighting, soft focused background, crisp detail, realistic colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0_ahaqO2L5MArM1ymGnYrbyheq5tc0Ay4XzgXaaavZ59rEC-wsrr_pnpfSm6uhmQYQjBVXGJnL4PqZjWLTxSpig8nMXdMt3iEa41_ENG9eHzS1UYY1UmHtPD5XLPacWJISIKWa0j0QLGIPr2G2dbXYMTXkIL2hzx1VJGSuYCvx9xr-L_0_HuI7ji14eTZAeVW_-bmPuPqlleGjxGiMz7yF75sTv3XMPJhHqT5ph0xqjRcWJ5YKA52"/>
+<div class="absolute bottom-1.5 right-2 bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface px-2 py-0.5 rounded-full font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary-fixed">psychology</span>
+              CAM-02 RPi
+            </div>
+</div>
+<!-- Acciones de la alerta -->
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 py-1.5 px-3 rounded-lg bg-error-container text-on-error-container font-label-sm text-label-sm font-semibold active:opacity-80 transition-opacity flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">troubleshoot</span>
+              Ver diagnóstico
+            </button>
+<button class="flex-1 py-1.5 px-3 rounded-lg bg-surface-container-low text-on-surface font-label-sm text-label-sm active:bg-surface-container-high transition-colors flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-[14px]">science</span>
+              Ajustar nutrientes
+            </button>
+</div>
+</div>
+</div>
+<!-- EVENTO 2: Riego Automático -->
+<div class="timeline-item flex items-start gap-3" data-category="riego" data-plant="albahaca">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hoy, 14:15 h</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm">
+              🌿 Albahaca #1
+            </span>
+</div>
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Riego por Umbral Autónomo</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Sensor capacitivo Z-01 activó electroválvula tras descender del umbral mínimo configurado (40%).
+            </p>
+</div>
+<!-- Indicador de humedad antes y después -->
+<div class="bg-surface-container-low rounded-lg p-2.5 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Humedad inicial</span>
+<span class="font-title-sm text-title-sm text-on-surface font-bold">38%</span>
+</div>
+<span class="material-symbols-outlined text-secondary text-[18px]">trending_flat</span>
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Optimizada</span>
+<span class="font-title-sm text-title-sm text-primary font-bold">54%</span>
+</div>
+</div>
+<div class="text-right">
+<span class="font-label-sm text-label-sm text-on-surface-variant block">Volumen</span>
+<span class="font-title-sm text-title-sm text-secondary font-bold">180 mL</span>
+</div>
+</div>
+<div class="flex items-center justify-between pt-0.5 text-on-surface-variant">
+<div class="flex items-center gap-1 text-primary">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Completado · 12 seg</span>
+</div>
+<button class="font-label-sm text-label-sm text-secondary hover:underline flex items-center gap-0.5">
+              Telemetría <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- EVENTO 3: Clima / Ventilación -->
+<div class="timeline-item flex items-start gap-3" data-category="clima" data-plant="all">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-surface-container-high text-tertiary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">mode_fan</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hoy, 12:00 h</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">
+              🌡️ Invernadero General
+            </span>
+</div>
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Ventilación forzada activada</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Temperatura de dosel superó los <span class="text-error font-semibold">28.5 °C</span>. Extractor RPi GPIO 27 encendido durante 15 minutos.
+            </p>
+</div>
+<div class="flex items-center gap-3 bg-surface-container-low rounded-lg p-2 text-on-surface">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-tertiary">thermostat</span>
+<span class="font-label-sm text-label-sm">Pico: <strong>29.1 °C</strong></span>
+</div>
+<div class="w-px h-4 bg-surface-container-highest"></div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px] text-secondary">air</span>
+<span class="font-label-sm text-label-sm">Flujo: <strong>3.2 m/s</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- EVENTO 4: Alerta Sistema (Depósito Bajo) -->
+<div class="timeline-item flex items-start gap-3" data-category="alerta" data-plant="all">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">water_bottle</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-tertiary-container font-semibold">Hoy, 09:30 h</span>
+<span class="px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm">
+              Depósito Central
+            </span>
+</div>
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Nivel de Reserva Crítico</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Sensor ultrasónico HC-SR04 reporta volumen inferior al 25% (aprox. 1.2 L restantes). Riegos futuros en riesgo.
+            </p>
+</div>
+<!-- Barra de nivel de reserva -->
+<div class="w-full bg-surface-container-high rounded-full h-2 overflow-hidden">
+<div class="bg-tertiary h-full rounded-full" style="width: 24%;"></div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Capacidad: 24% (1.2 / 5.0 L)</span>
+<button class="px-2.5 py-1 rounded-lg bg-surface-container-high text-on-surface font-label-sm text-label-sm active:scale-95 transition-transform">
+              Silenciar 2h
+            </button>
+</div>
+</div>
+</div>
+<!-- EVENTO 5: Riego Manual -->
+<div class="timeline-item flex items-start gap-3" data-category="riego" data-plant="menta">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-secondary text-on-secondary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">touch_app</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Hoy, 08:00 h</span>
+<span class="px-2 py-0.5 rounded-full bg-primary-container text-on-primary-container font-label-sm text-label-sm">
+              🍃 Menta Piperita
+            </span>
+</div>
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Riego Manual Aplicado</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Dispensación preventiva de 200 mL solicitada por el usuario desde el módulo de Control Remoto.
+            </p>
+</div>
+<div class="flex items-center justify-between pt-1 text-on-surface-variant font-label-sm text-label-sm">
+<span>Operador: <strong>Admin Móvil</strong></span>
+<span class="text-secondary font-semibold">200 mL · Bomba A</span>
+</div>
+</div>
+</div>
+<!-- EVENTO 6: Diagnóstico Programado IA (Ayer) -->
+<div class="timeline-item flex items-start gap-3" data-category="ia" data-plant="all">
+<div class="flex-shrink-0 w-7 h-7 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-[16px]">auto_awesome</span>
+</div>
+<div class="flex-1 bg-surface-container-lowest rounded-xl p-3.5 shadow-sm space-y-2">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Ayer, 18:30 h</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm">
+              Inspección Global
+            </span>
+</div>
+<div>
+<h2 class="font-title-sm text-title-sm text-on-surface">Inspección Periódica Azure AI</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+              Escaneo multiespectral de las 3 zonas. Follaje general evaluado con <span class="text-primary font-semibold">94% de vigor biológico</span>.
+            </p>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary bg-primary-container/40 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">check</span> Sin plagas
+            </span>
+<span class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary bg-primary-container/40 px-2 py-0.5 rounded-full">
+<span class="material-symbols-outlined text-[14px]">check</span> Turgencia ideal
+            </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Estado Vacío (Hidden por defecto para filtro dinámico) -->
+<div class="hidden flex-col items-center justify-center p-6 text-center space-y-2 bg-surface-container-lowest rounded-xl shadow-sm mt-3" id="empty-state">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[24px]">filter_list_off</span>
+</div>
+<h3 class="font-title-sm text-title-sm text-on-surface">No hay eventos que coincidan</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-[240px]">
+        Prueba cambiando de categoría o selecciona otra planta en el selector superior.
+      </p>
+<button class="mt-2 text-primary font-title-sm text-title-sm" id="btn-reset-filters">
+        Restablecer filtros
+      </button>
+</div>
+</div>
+<!-- Barra inferior de acciones secundarias -->
+<div class="pt-2 flex items-center justify-between text-on-surface-variant">
+<button class="flex items-center gap-1 font-label-sm text-label-sm hover:text-error transition-colors px-2 py-1.5 rounded-lg active:bg-surface-container-high" id="btn-clear-history">
+<span class="material-symbols-outlined text-[16px]">delete_sweep</span>
+      Limpiar historial
+    </button>
+<button class="flex items-center gap-1 font-label-sm text-label-sm hover:text-primary transition-colors px-2 py-1.5 rounded-lg active:bg-surface-container-high" id="btn-share">
+<span class="material-symbols-outlined text-[16px]">file_download</span>
+      Descargar CSV
+    </button>
+</div>
+</div>
+<script>
+  (function() {
+    const chips = document.querySelectorAll('.filter-chip');
+    const plantFilter = document.getElementById('plant-filter');
+    const items = document.querySelectorAll('.timeline-item');
+    const emptyState = document.getElementById('empty-state');
+    const resetBtn = document.getElementById('btn-reset-filters');
+    const clearBtn = document.getElementById('btn-clear-history');
+    const exportBtn = document.getElementById('btn-export');
+    const shareBtn = document.getElementById('btn-share');
+
+    let currentCategory = 'all';
+    let currentPlant = 'all';
+
+    function applyFilters() {
+      let visibleCount = 0;
+
+      items.forEach(item => {
+        const itemCategories = item.getAttribute('data-category').split(' ');
+        const itemPlant = item.getAttribute('data-plant');
+
+        const matchesCat = currentCategory === 'all' || itemCategories.includes(currentCategory);
+        const matchesPlant = currentPlant === 'all' || itemPlant === 'all' || itemPlant === currentPlant;
+
+        if (matchesCat && matchesPlant) {
+          item.style.display = 'flex';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      if (visibleCount === 0) {
+        emptyState.classList.remove('hidden');
+        emptyState.classList.add('flex');
+      } else {
+        emptyState.classList.add('hidden');
+        emptyState.classList.remove('flex');
+      }
+    }
+
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        chips.forEach(c => {
+          c.classList.remove('bg-primary', 'text-on-primary', 'active');
+          c.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+        });
+        chip.classList.add('bg-primary', 'text-on-primary', 'active');
+        chip.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+
+        currentCategory = chip.getAttribute('data-category');
+        applyFilters();
+      });
+    });
+
+    plantFilter.addEventListener('change', (e) => {
+      currentPlant = e.target.value;
+      applyFilters();
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        currentCategory = 'all';
+        currentPlant = 'all';
+        plantFilter.value = 'all';
+        chips.forEach((c, idx) => {
+          if (idx === 0) {
+            c.classList.add('bg-primary', 'text-on-primary', 'active');
+            c.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
+          } else {
+            c.classList.remove('bg-primary', 'text-on-primary', 'active');
+            c.classList.add('bg-surface-container-lowest', 'text-on-surface-variant');
+          }
+        });
+        applyFilters();
+      });
+    }
+
+    // Micro-interacción: feedback en botones de acción
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-20 left-1/2 -translate-x-1/2 bg-inverse-surface text-inverse-on-surface px-4 py-2 rounded-full font-label-md text-label-md shadow-lg z-50 transition-opacity duration-300';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 2000);
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        showToast('Historial archivado correctamente');
+      });
+    }
+
+    if (exportBtn) {
+      exportBtn.addEventListener('click', () => {
+        showToast('Generando reporte PDF/CSV...');
+      });
+    }
+
+    if (shareBtn) {
+      shareBtn.addEventListener('click', () => {
+        showToast('Descargando archivo telemetría.csv');
+      });
+    }
+  })();
+</script></main><nav class="fixed bottom-0 inset-x-0 z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-title-sm"><div class="flex justify-around items-center h-16 px-2"><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="inicio" href="#"><span class="material-symbols-outlined text-[22px]">home</span><span class="font-label-sm text-label-sm">Inicio</span></a><a aria-current="page" class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] transition-colors text-primary font-title-sm" data-path="timeline" href="#"><span class="material-symbols-outlined text-[22px]">timeline</span><span class="font-label-sm text-label-sm">Timeline</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="camara" href="#"><span class="material-symbols-outlined text-[22px]">photo_camera</span><span class="font-label-sm text-label-sm">Cámara</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="control" href="#"><span class="material-symbols-outlined text-[22px]">tune</span><span class="font-label-sm text-label-sm">Control</span></a><a class="flex flex-col items-center justify-center gap-0.5 min-w-[56px] min-h-[44px] text-on-surface-variant transition-colors" data-path="mas" href="#"><span class="material-symbols-outlined text-[22px]">grid_view</span><span class="font-label-sm text-label-sm">Más</span></a></div></nav></body></html>

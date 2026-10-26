@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#F6F8F5;}body{overscroll-behavior:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-error": "#ffffff", "surface-container-highest": "#e0e4da", "on-surface": "#181d17", "on-error-container": "#93000a", "tertiary": "#FB8C00", "inverse-primary": "#88d982", "secondary-fixed-dim": "#a2c9ff", "tertiary-container": "#FFE0B2", "surface-dim": "#EBEFE9", "on-secondary": "#FFFFFF", "on-surface-variant": "#555555", "on-primary-fixed": "#002204", "on-primary-container": "#1B5E20", "secondary-container": "#BBDEFB", "surface": "#F6F8F5", "secondary-fixed": "#d3e4ff", "on-tertiary-container": "#ffefe5", "on-secondary-container": "#003663", "surface-variant": "#e0e4da", "on-background": "#181d17", "on-primary": "#ffffff", "error-container": "#FFCDD2", "surface-container-low": "#f1f5eb", "surface-tint": "#1b6d24", "outline-variant": "#bfcaba", "on-tertiary-fixed-variant": "#6d3a00", "tertiary-fixed": "#ffdcc2", "primary-container": "#C8E6C9", "on-primary-fixed-variant": "#005312", "surface-container-lowest": "#FFFFFF", "primary": "#0d631b", "on-tertiary-fixed": "#2e1500", "inverse-on-surface": "#eef2e8", "inverse-surface": "#2d322b", "on-tertiary": "#FFFFFF", "on-secondary-fixed-variant": "#004881", "surface-container": "#ebefe5", "error": "#E53935", "outline": "#81C784", "surface-bright": "#f7fbf0", "secondary": "#0060a8", "primary-fixed": "#a3f69c", "surface-container-high": "#E0E6DB", "on-secondary-fixed": "#001c38", "tertiary-fixed-dim": "#ffb77b", "background": "#f7fbf0", "primary-fixed-dim": "#88d982" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-lg": "1.5rem", "gutter-mobile": "0.75rem", "margin": "2rem", "margin-mobile": "1rem", "gutter": "1rem", "space-sm": "0.5rem", "space-xl": "2rem", "space-md": "1rem", "space-xs": "0.25rem" }, "fontFamily": { "title-md": ["Inter"], "label-md": ["Inter"], "body-md": ["Inter"], "headline-sm": ["Inter"], "body-sm": ["Inter"], "display-lg": ["Inter"], "headline-lg": ["Inter"], "label-sm": ["Inter"], "label-lg": ["Inter"], "title-lg": ["Inter"], "headline-lg-mobile": ["Inter"], "display-lg-mobile": ["Inter"], "headline-md": ["Inter"], "body-lg": ["Inter"], "title-sm": ["Inter"] }, "fontSize": { "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "display-lg": ["48px", { "lineHeight": "56px", "fontWeight": "700" }], "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "label-lg": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }], "display-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "700" }], "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }] } } } };</script></head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><div class="w-10 h-10 rounded-xl bg-primary-container flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[22px]">eco</span></div><div class="flex flex-col"><span class="font-title-sm text-title-sm text-on-surface leading-tight">RiegoSmart IA</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-tight">Reglas</span></div></div><div class="flex items-center gap-space-sm"><div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container text-on-primary-container"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-sm text-label-sm font-medium">RPi Online</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center min-w-[32px]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 px-gutter-mobile bg-surface"><div class="flex flex-col w-full gap-space-md">
+<!-- Top Banner / Master Switch -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm relative overflow-hidden">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-on-surface">Reglas de Automatización</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Instrucciones inteligentes ejecutadas localmente en la Raspberry Pi</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[24px]">memory</span>
+</div>
+</div>
+<!-- Master Controller Card -->
+<div class="bg-surface-container-low rounded-xl p-space-sm flex items-center justify-between mt-space-xs">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed">
+<span class="material-symbols-outlined text-[20px]">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface">Modo Autónomo Activo</span>
+<div class="flex items-center gap-1.5 mt-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-ping"></span>
+<span class="font-label-sm text-label-sm text-on-primary-container">6 reglas sincronizadas</span>
+</div>
+</div>
+</div>
+<!-- Interactive Toggle -->
+<button aria-label="Alternar modo autónomo" class="w-12 h-7 rounded-full bg-primary p-0.5 transition-colors duration-200 focus:outline-none flex items-center justify-end" id="master-toggle" type="button">
+<div class="w-6 h-6 rounded-full bg-surface-container-lowest shadow-sm" id="master-thumb"></div>
+</button>
+</div>
+<!-- Action Button to Add Rule -->
+<button class="w-full h-12 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs shadow-md active:scale-[0.99] transition-transform" id="open-builder-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+<span>+ Crear nueva regla</span>
+</button>
+</div>
+<!-- Category Filters -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-gutter-mobile px-gutter-mobile">
+<button class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shrink-0 shadow-sm">
+      Todas (6)
+    </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shrink-0 hover:bg-surface-container transition-colors">
+      💧 Riego
+    </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shrink-0 hover:bg-surface-container transition-colors">
+      🌬️ Clima &amp; Ventilación
+    </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shrink-0 hover:bg-surface-container transition-colors">
+      💡 Iluminación
+    </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant font-label-md text-label-md shrink-0 hover:bg-surface-container transition-colors">
+      ⚠️ Seguridad
+    </button>
+</div>
+<!-- Interactive Rule Builder Card (Accordion/Modal style in-page) -->
+<div class="hidden bg-surface-container-lowest rounded-xl p-space-md shadow-md flex-col gap-space-sm border-0" id="rule-builder-card">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 rounded-lg bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<span class="font-title-md text-title-md text-on-surface">Constructor de Instrucciones</span>
+</div>
+<button class="w-7 h-7 rounded-full bg-surface-container text-on-surface-variant flex items-center justify-center hover:bg-surface-container-high" id="close-builder-btn" type="button">
+<span class="material-symbols-outlined text-[18px]">close</span>
+</button>
+</div>
+<!-- Step 1: Disparador -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">1. Selecciona disparador (Sensor)</label>
+<div class="grid grid-cols-3 gap-1.5">
+<button class="p-2 rounded-xl bg-primary-container text-on-primary-container font-label-sm text-label-sm flex flex-col items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[20px]">water_drop</span>
+<span>Humedad suelo</span>
+</button>
+<button class="p-2 rounded-xl bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex flex-col items-center gap-1 hover:bg-surface-container-high" type="button">
+<span class="material-symbols-outlined text-[20px]">device_thermostat</span>
+<span>Temperatura</span>
+</button>
+<button class="p-2 rounded-xl bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex flex-col items-center gap-1 hover:bg-surface-container-high" type="button">
+<span class="material-symbols-outlined text-[20px]">wb_sunny</span>
+<span>Luz solar</span>
+</button>
+</div>
+</div>
+<!-- Step 2: Condición & Umbral -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">2. Condición lógica</label>
+<div class="grid grid-cols-3 gap-2">
+<div class="flex items-center justify-center py-2 px-3 rounded-xl bg-surface-container font-title-sm text-title-sm text-on-surface">
+          &lt; Menor que
+        </div>
+<div class="col-span-2 flex items-center bg-surface-container-low px-3 py-1.5 rounded-xl">
+<span class="font-label-sm text-label-sm text-on-surface-variant mr-2">Umbral:</span>
+<input class="w-full bg-transparent font-title-sm text-title-sm text-on-surface focus:outline-none" type="number" value="38"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">%</span>
+</div>
+</div>
+</div>
+<!-- Step 3: Actuador RPi -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md text-on-surface-variant">3. Accionador RPi (Salida GPIO)</label>
+<div class="grid grid-cols-2 gap-2">
+<div class="p-2.5 rounded-xl bg-secondary-container text-on-secondary-container flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">water</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Bomba GPIO 17</span>
+<span class="font-label-sm text-label-sm opacity-80">Riego por goteo</span>
+</div>
+</div>
+<div class="p-2.5 rounded-xl bg-surface-container text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">mode_fan</span>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md">Ventilador RPi</span>
+<span class="font-label-sm text-label-sm opacity-80">GPIO 27</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Step 4: Dosis o Duración -->
+<div class="flex flex-col gap-1.5 bg-surface-container-low p-space-sm rounded-xl">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface-variant">Dosis o Caudal programado</span>
+<span class="font-title-sm text-title-sm text-primary" id="slider-val">200 mL</span>
+</div>
+<input class="w-full accent-primary h-2 bg-surface-container-highest rounded-lg appearance-none cursor-pointer" id="dose-range" max="600" min="50" step="25" type="range" value="200"/>
+<div class="flex justify-between font-label-sm text-label-sm text-on-surface-variant">
+<span>50 mL (Micro)</span>
+<span>600 mL (Abundante)</span>
+</div>
+</div>
+<!-- Save Button -->
+<button class="w-full h-11 bg-primary text-on-primary rounded-xl font-label-lg text-label-lg flex items-center justify-center gap-space-xs mt-1 shadow-sm active:scale-[0.99] transition-transform" id="save-rule-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">sync_saved_locally</span>
+<span>Guardar y Sincronizar con RPi</span>
+</button>
+</div>
+<!-- Rules List -->
+<div class="flex flex-col gap-space-sm">
+<!-- Regla 1: Riego Automático -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm transition-all">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-xl bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">water_drop</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="font-title-md text-title-md text-on-surface">Riego automático por sequedad</span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">Prioridad Alta</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sector A (Tomates)</span>
+</div>
+</div>
+</div>
+<!-- Active Switch -->
+<button aria-label="Desactivar regla" class="rule-toggle w-11 h-6 rounded-full bg-primary p-0.5 flex items-center justify-end shrink-0" type="button">
+<div class="w-5 h-5 rounded-full bg-surface-container-lowest shadow-sm"></div>
+</button>
+</div>
+<!-- Logic Visual IF-THEN Box -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-secondary">SI (Trigger)</span>
+<span class="text-on-surface">Humedad sustrato &lt; 40% durante 15 min</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-primary">ENTONCES</span>
+<span class="text-on-surface font-medium">Activar Bomba GPIO 17 (dosis 180 mL)</span>
+</div>
+</div>
+<!-- Footer Action Buttons -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+<span>Último disparo: Hoy 06:40 AM</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="edit-rule-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Modificar</span>
+</button>
+<button class="test-rule-btn px-3 py-1.5 rounded-lg bg-secondary-container text-on-secondary-container font-label-sm text-label-sm flex items-center gap-1 active:scale-95 transition-transform" type="button">
+<span class="material-symbols-outlined text-[16px]">play_arrow</span>
+<span>Probar ahora</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Regla 2: Ventilación Térmica -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm transition-all">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-xl bg-tertiary-container text-on-tertiary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">mode_fan</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Control térmico de mediodía</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">Clima Invernadero</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sensor DHT22</span>
+</div>
+</div>
+</div>
+<!-- Active Switch -->
+<button aria-label="Desactivar regla" class="rule-toggle w-11 h-6 rounded-full bg-primary p-0.5 flex items-center justify-end shrink-0" type="button">
+<div class="w-5 h-5 rounded-full bg-surface-container-lowest shadow-sm"></div>
+</button>
+</div>
+<!-- Logic Visual IF-THEN Box -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-secondary">SI (Trigger)</span>
+<span class="text-on-surface">Temperatura &gt; 27.5 °C en cúpula</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-primary">ENTONCES</span>
+<span class="text-on-surface font-medium">Encender Ventilador GPIO 27 (Máx. vel.)</span>
+</div>
+</div>
+<!-- Footer Action Buttons -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-tertiary">thermostat</span>
+<span>Activo actualmente</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="edit-rule-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Modificar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Regla 3: Fotoperiodo / Luces LED -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm transition-all">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">light_mode</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Ciclo diurno de crecimiento</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-2 py-0.5 rounded-full bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm">Fotoperiodo 14h</span>
+</div>
+</div>
+</div>
+<!-- Active Switch -->
+<button aria-label="Desactivar regla" class="rule-toggle w-11 h-6 rounded-full bg-primary p-0.5 flex items-center justify-end shrink-0" type="button">
+<div class="w-5 h-5 rounded-full bg-surface-container-lowest shadow-sm"></div>
+</button>
+</div>
+<!-- Logic Visual IF-THEN Box -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-secondary">SI (Horario)</span>
+<span class="text-on-surface">Horario entre 07:00 y 21:00</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-primary">ENTONCES</span>
+<span class="text-on-surface font-medium">Encender Luces LED PWM al 80%</span>
+</div>
+</div>
+<!-- Footer Action Buttons -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">power</span>
+<span>Consumo: 42W</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="edit-rule-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Modificar</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Regla 4: Protección Nivel de Tanque -->
+<div class="bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col gap-space-sm transition-all">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<div class="w-9 h-9 rounded-xl bg-error-container text-on-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[22px]">shield</span>
+</div>
+<div class="flex flex-col">
+<span class="font-title-md text-title-md text-on-surface">Seguridad antibloqueo por depósito bajo</span>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="px-2 py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm">Fallo crítico</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Sensor Ultrasónico</span>
+</div>
+</div>
+</div>
+<!-- Active Switch -->
+<button aria-label="Desactivar regla" class="rule-toggle w-11 h-6 rounded-full bg-primary p-0.5 flex items-center justify-end shrink-0" type="button">
+<div class="w-5 h-5 rounded-full bg-surface-container-lowest shadow-sm"></div>
+</button>
+</div>
+<!-- Logic Visual IF-THEN Box -->
+<div class="bg-surface-container-low rounded-xl p-3 flex flex-col gap-1.5">
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-error">SI (Alerta)</span>
+<span class="text-on-surface">Nivel tanque principal &lt; 15%</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-on-surface">ENTONCES</span>
+<span class="text-on-surface font-medium">Bloquear bomba de riego y alertar al móvil</span>
+</div>
+</div>
+<!-- Footer Action Buttons -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[16px] text-primary">verified_user</span>
+<span>Depósito actual: 78% (Seguro)</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="edit-rule-btn px-3 py-1.5 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm flex items-center gap-1 active:bg-surface-container-high transition-colors" type="button">
+<span class="material-symbols-outlined text-[16px]">edit</span>
+<span>Modificar</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Micro Toast Notification Container for interactions -->
+<div class="fixed bottom-20 left-1/2 -translate-x-1/2 bg-on-surface text-surface-container-lowest px-4 py-2.5 rounded-full shadow-lg font-label-md text-label-md flex items-center gap-2 pointer-events-none opacity-0 transition-opacity duration-300 z-50" id="toast">
+<span class="material-symbols-outlined text-[18px] text-primary-fixed">check_circle</span>
+<span id="toast-text">Comando enviado a Raspberry Pi</span>
+</div>
+</div>
+<script>
+  // Dynamic interaction handlers
+  const openBuilderBtn = document.getElementById('open-builder-btn');
+  const closeBuilderBtn = document.getElementById('close-builder-btn');
+  const ruleBuilderCard = document.getElementById('rule-builder-card');
+  const saveRuleBtn = document.getElementById('save-rule-btn');
+  const doseRange = document.getElementById('dose-range');
+  const sliderVal = document.getElementById('slider-val');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toast-text');
+
+  function showToast(msg) {
+    if (!toast) return;
+    toastText.textContent = msg;
+    toast.classList.remove('opacity-0');
+    toast.classList.add('opacity-100');
+    setTimeout(() => {
+      toast.classList.remove('opacity-100');
+      toast.classList.add('opacity-0');
+    }, 2400);
+  }
+
+  // Toggle builder visibility
+  if (openBuilderBtn && ruleBuilderCard) {
+    openBuilderBtn.addEventListener('click', () => {
+      ruleBuilderCard.classList.remove('hidden');
+      ruleBuilderCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  if (closeBuilderBtn && ruleBuilderCard) {
+    closeBuilderBtn.addEventListener('click', () => {
+      ruleBuilderCard.classList.add('hidden');
+    });
+  }
+
+  // Range slider visual update
+  if (doseRange && sliderVal) {
+    doseRange.addEventListener('input', (e) => {
+      sliderVal.textContent = e.target.value + ' mL';
+    });
+  }
+
+  // Save rule simulation
+  if (saveRuleBtn) {
+    saveRuleBtn.addEventListener('click', () => {
+      ruleBuilderCard.classList.add('hidden');
+      showToast('Nueva regla sincronizada con RPi GPIO');
+    });
+  }
+
+  // Master Autonomous switch
+  const masterToggle = document.getElementById('master-toggle');
+  let masterActive = true;
+  if (masterToggle) {
+    masterToggle.addEventListener('click', () => {
+      masterActive = !masterActive;
+      if (masterActive) {
+        masterToggle.className = 'w-12 h-7 rounded-full bg-primary p-0.5 transition-colors duration-200 focus:outline-none flex items-center justify-end';
+        showToast('Modo autónomo activado en RPi');
+      } else {
+        masterToggle.className = 'w-12 h-7 rounded-full bg-surface-container-highest p-0.5 transition-colors duration-200 focus:outline-none flex items-center justify-start';
+        showToast('Modo autónomo suspendido');
+      }
+    });
+  }
+
+  // Rule item toggles
+  document.querySelectorAll('.rule-toggle').forEach((btn) => {
+    let active = true;
+    btn.addEventListener('click', () => {
+      active = !active;
+      if (active) {
+        btn.className = 'rule-toggle w-11 h-6 rounded-full bg-primary p-0.5 flex items-center justify-end shrink-0 transition-colors';
+        showToast('Regla activada');
+      } else {
+        btn.className = 'rule-toggle w-11 h-6 rounded-full bg-surface-container-highest p-0.5 flex items-center justify-start shrink-0 transition-colors';
+        showToast('Regla pausada temporalmente');
+      }
+    });
+  });
+
+  // Test button simulation
+  document.querySelectorAll('.test-rule-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      showToast('Ejecutando pulso de prueba GPIO 17 (3s)...');
+    });
+  });
+
+  // Edit button behavior
+  document.querySelectorAll('.edit-rule-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      if (ruleBuilderCard) {
+        ruleBuilderCard.classList.remove('hidden');
+        ruleBuilderCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showToast('Cargando regla en el constructor');
+      }
+    });
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-title-sm"><div class="flex items-center justify-around h-16 px-space-xs"><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="inicio" href="#"><span class="material-symbols-outlined text-[24px]">home</span><span class="font-label-sm text-label-sm mt-0.5">Inicio</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="timeline" href="#"><span class="material-symbols-outlined text-[24px]">timeline</span><span class="font-label-sm text-label-sm mt-0.5">Timeline</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="identificar" href="#"><span class="material-symbols-outlined text-[24px]">photo_camera</span><span class="font-label-sm text-label-sm mt-0.5">Cámara</span></a><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] transition-colors text-primary font-title-sm" data-path="reglas" href="#"><span class="material-symbols-outlined text-[24px]">smart_toy</span><span class="font-label-sm text-label-sm mt-0.5">Reglas</span></a></div></nav></body></html>
