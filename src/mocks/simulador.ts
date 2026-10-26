@@ -6,6 +6,7 @@ import type {
   TipoEventoTimeline,
 } from '@/types';
 import { EVENTOS_SEMILLA, PLANTAS_SEMILLA, UMBRALES_SEMILLA } from './datos';
+import * as notificacionesService from '@/services/notificacionesService';
 
 // Simulador en vivo: cada pocos segundos varía lecturas y de vez en cuando
 // dispara riegos automáticos y alertas. Es un singleton con suscripción.
@@ -111,6 +112,21 @@ function evento(tipo: TipoEventoTimeline, datos: Omit<EventoTimeline, 'id' | 'ti
   });
   // Cap de memoria: 200 eventos.
   if (estado.eventos.length > 200) estado.eventos.length = 200;
+
+  // Notificación local de demostración según el tipo de evento.
+  if (tipo === 'riego') {
+    void notificacionesService.enviarLocal(
+      'riego_realizado',
+      'Riego realizado',
+      `Bomba GPIO 17 suministró ${datos.volumenMl ?? 0} mL${datos.plantaNombre ? ` en ${datos.plantaNombre}` : ''}.`,
+    );
+  } else if (tipo === 'alerta') {
+    if (datos.plantaNombre === 'Depósito Central') {
+      void notificacionesService.enviarLocal('deposito_vacio', datos.titulo, datos.descripcion);
+    } else {
+      void notificacionesService.enviarLocal('enfermedad_detectada', datos.titulo, datos.descripcion);
+    }
+  }
 }
 
 function ledSegunEstado(): EstadoDispositivo['ledIndicador'] {
@@ -186,6 +202,7 @@ function tick(): void {
 }
 
 let ultimoRiegoAuto = Date.now();
+let ultimoAvisoEstres = 0;
 let riegoParcial: { enCurso: boolean; objetivo: number; plantaId: string } | null = null;
 
 function ejecutarReglasPero(): void {
@@ -193,12 +210,30 @@ function ejecutarReglasPero(): void {
   const umbrales = { ...UMBRALES_SEMILLA };
   const ahora = Date.now();
 
+  // Humedad de referencia (albahaca).
+  const humedadRef = estado.humedades['albahaca-1'];
+
   // Bloqueo de seguridad: depósito bajo o flotador.
   const bloqueo =
     lecturas.nivelDeposito < umbrales.depositoCriticoPct || lecturas.flotadorVacio;
 
+  // Estrés hídrico: sequedad persistente sin poder regar (bloqueo).
+  if (
+    bloqueo &&
+    humedadRef < umbrales.humedadMinimaPct &&
+    Math.abs(ahora - ultimoAvisoEstres) > 10 * 60 * 1000
+  ) {
+    ultimoAvisoEstres = ahora;
+    evento('alerta', {
+      titulo: 'Estrés Hídrico Detectado',
+      descripcion: `Humedad ${humedadRef}% < ${umbrales.humedadMinimaPct}% y la bomba está bloqueada por seguridad (depósito bajo / flotador).`,
+      plantaId: 'albahaca-1',
+      plantaNombre: 'Albahaca #1',
+      origen: 'sistema',
+    });
+  }
+
   // Riego por sequedad en la referencia (albahaca).
-  const humedadRef = estado.humedades['albahaca-1'];
   if (
     !bloqueo &&
     dispositivo.modoAuto &&
@@ -360,6 +395,11 @@ export const simulador = {
       estado.dispositivo.bomba = false;
       estado.dispositivo.ventilador = false;
       estado.lecturas.caudalLmin = 0;
+      void notificacionesService.enviarLocal(
+        'dispositivo_desconectado',
+        'Dispositivo desconectado',
+        'RPi Offline · el riego automático quedó pausado hasta reconectar.',
+      );
     }
     notificar();
   },
