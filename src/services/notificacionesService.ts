@@ -1,4 +1,5 @@
 import * as Notifications from 'expo-notifications';
+import { AndroidImportance } from 'expo-notifications';
 import { Platform } from 'react-native';
 import { espera } from './bd';
 import type { NotificacionApp, TipoNotificacion } from '@/types';
@@ -33,7 +34,7 @@ export async function inicializarCanal(): Promise<void> {
   if (Platform.OS !== 'android') return;
   await Notifications.setNotificationChannelAsync('riegosmart-demo', {
     name: 'RiegoSmart IA · Demo',
-    importance: Notifications.AndroidImportance.HIGH,
+    importance: AndroidImportance.HIGH,
     lightColor: '#2E7D32',
   });
 }

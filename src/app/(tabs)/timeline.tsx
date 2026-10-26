@@ -2,7 +2,7 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
 import { FlatList, Pressable, ScrollView, Text, View } from 'react-native';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Header } from '@/components/ui/Header';
 import { Card } from '@/components/ui/Card';
 import { Chip } from '@/components/ui/Chip';
@@ -45,6 +45,17 @@ export default function Timeline() {
   const [filtroPlanta, setFiltroPlanta] = useState<FiltroPlanta>('todas');
   const [filtroRango, setFiltroRango] = useState<FiltroRango>('semana');
   const listaRef = useRef<FlatList>(null);
+  // Los "cortes" de fecha se capturan en efectos (Date.now() es impuro en render).
+  const [ahoraMs, setAhoraMs] = useState(0);
+  const [hoyStr, setHoyStr] = useState('');
+  useEffect(() => {
+    // Fuera del cuerpo síncrono del efecto (regla de setState síncrono).
+    const t = setTimeout(() => {
+      setAhoraMs(Date.now());
+      setHoyStr(new Date().toDateString());
+    }, 0);
+    return () => clearTimeout(t);
+  }, []);
 
   const eventos = useInfiniteQuery({
     queryKey: ['eventos', filtroTipo, filtroPlanta, filtroRango],
@@ -57,8 +68,8 @@ export default function Timeline() {
   const todas = eventos.data?.pages.flatMap((p) => p.eventos) ?? [];
   const total = eventos.data?.pages[0]?.totalFiltrado ?? 0;
 
-  // KPIs del día (basados en eventos del mock)
-  const hoy = new Date().toDateString();
+  // KPIs del día (basados en eventos del mock; "hoyStr" viene del efecto de arranque)
+  const hoy = hoyStr;
   const eventosHoy = todas.filter((e) => new Date(e.fecha).toDateString() === hoy);
   const riegosHoy = eventosHoy.filter((e) => e.tipo === 'riego');
   const mlHoy = riegosHoy.reduce((a, e) => a + (e.volumenMl ?? 0), 0);
@@ -78,8 +89,7 @@ export default function Timeline() {
     void eventos.refetch();
   }
 
-  function filtrarPorRango(semillas: typeof todas): typeof todas {
-    const ahora = Date.now();
+  function filtrarPorRango(semillas: typeof todas, ahora: number): typeof todas {
     const ms = filtroRango === 'hoy' ? 24 * 3600e3 : filtroRango === 'semana' ? 7 * 24 * 3600e3 : 30 * 24 * 3600e3;
     return semillas.filter((e) => ahora - new Date(e.fecha).getTime() <= ms);
   }
@@ -115,7 +125,7 @@ export default function Timeline() {
       <Header tituloPantalla="Timeline" online={online} inicialesUsuario={iniciales} />
       <FlatList
         ref={listaRef}
-        data={filtrarPorRango(todas)}
+        data={ahoraMs > 0 ? filtrarPorRango(todas, ahoraMs) : []}
         keyExtractor={(e) => e.id}
         onRefresh={() => void eventos.refetch()}
         refreshing={eventos.isRefetching}
